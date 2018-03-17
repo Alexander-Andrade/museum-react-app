@@ -9,9 +9,11 @@ import {
 	View,
 } from 'react-native';
 
+
+
 class SecScreen extends React.Component {
   static navigationOptions = {
-		title: 'Sec Title'
+		title: 'Artworks'
 	}
   
   constructor(props) {

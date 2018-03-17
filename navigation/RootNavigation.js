@@ -1,17 +1,17 @@
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
-import MainScreen from '../screens/MainScreen';
-import Sec from '../screens/SecScreen';
+import { DrawerNavigator } from 'react-navigation';
+import ArtistsScreen from '../screens/ArtistsScreen';
+import ArtworksScreen from '../screens/ArtworksScreen';
 
-export default StackNavigator({
-    Main: {
-      screen: MainScreen
+export default DrawerNavigator({
+    Artists: {
+      screen: ArtistsScreen
     },
-    Sec: {
-      screen: Sec
+    Artworks: {
+      screen: ArtworksScreen
     }
   },
   {
-    initialRouteName: 'Main'
+    initialRouteName: 'Artists'
   }
 );
