@@ -1,14 +1,17 @@
-import React from 'react';
-import RootNavigation from './navigation/RootNavigation';
-import Auth from './models/Auth';
-import { Provider } from 'mobx-react';
+import React from 'react'
+import RootNavigation from './navigation/RootNavigation'
+import { autorun } from 'mobx'
+import { Provider } from 'mobx-react'
+import ArtistsModel from './models/ArtistsModel'
 
-const auth = new Auth;
+const artistsModel = new ArtistsModel
+
+autorun(() => artistsModel.load())
 
 class App extends React.Component {
   render() {
     return (
-      <Provider auth={auth}>
+      <Provider artistsModel = {artistsModel}>
         <RootNavigation />
       </Provider>
     );

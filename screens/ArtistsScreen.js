@@ -13,7 +13,7 @@ import { Header } from 'react-native-elements';
 import { observer, inject } from 'mobx-react';
 
 
-@inject("auth") @observer
+@inject("artistsModel") @observer
 class ArtistsScreen extends React.Component {
 	
 	static navigationOptions = {
@@ -22,7 +22,7 @@ class ArtistsScreen extends React.Component {
 	
 	constructor(props) {
 		super(props);
-		console.log(props.auth);
+		
 		this.state = {};
 	}
 
