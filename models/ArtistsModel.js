@@ -1,6 +1,6 @@
 import {observable, action} from 'mobx'
 import auth from './Auth'
-
+import axios from 'axios'
 
 class ArtistsModel {
 
@@ -11,13 +11,15 @@ class ArtistsModel {
   }
   
 
-  load() {
+  async load() {
     if (auth.xapp_token != null) {
-      console.log(`auth token ${auth.xapp_token}`)
-      console.log('load artists')
-    }
-    else{
-      console.log(`auth.xapp_token = ${auth.xapp_token}`)
+      const response = await axios.get("https://api.artsy.net/api/artists?size=5",{
+        headers: {
+          "X-XAPP-Token": auth.xapp_token 
+        }
+      })
+
+      console.log(response)
     }
   }
 

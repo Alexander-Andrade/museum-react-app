@@ -18,7 +18,6 @@ class Auth {
       const query = `https://api.artsy.net/api/tokens/xapp_token?client_id=${this.client_id}&client_secret=${this.client_secret}`
       const response = await axios.post(query)
       this.xapp_token = response.data.token
-      console.log(`new token ${this.xapp_token}`)
     } catch (e) {
       console.log(e)
     }
