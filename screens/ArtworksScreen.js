@@ -11,7 +11,7 @@ import {
 
 
 
-class SecScreen extends React.Component {
+class ArtworksScreen extends React.Component {
   static navigationOptions = {
 		title: 'Artworks'
 	}
@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default SecScreen;
+export default ArtworksScreen;

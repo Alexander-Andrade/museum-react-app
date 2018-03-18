@@ -10,8 +10,11 @@ import {
 	Button
 } from 'react-native';
 import { Header } from 'react-native-elements';
+import { observer, inject } from 'mobx-react';
 
-class MainScreen extends React.Component {
+
+@inject("auth") @observer
+class ArtistsScreen extends React.Component {
 	
 	static navigationOptions = {
 		title: 'Artists'
@@ -19,7 +22,7 @@ class MainScreen extends React.Component {
 	
 	constructor(props) {
 		super(props);
-
+		console.log(props.auth);
 		this.state = {};
 	}
 
@@ -50,4 +53,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default MainScreen;
+export default ArtistsScreen;
