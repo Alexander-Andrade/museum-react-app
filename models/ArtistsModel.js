@@ -5,13 +5,9 @@ import axios from 'axios'
 class ArtistsModel {
 
   @observable artists = []
-  @observable page = 1
   @observable size = 2
   @observable next_href = `https://api.artsy.net/api/artists?artworks=true&sort=-trending&size=${this.size}`
-
-  constructor() {
-  }
-  
+  @observable prev_href = ""
 
   async load() {
     if (auth.xapp_token != null) {
@@ -22,6 +18,7 @@ class ArtistsModel {
       })
 
       this.artists = response.data._embedded.artists
+      this.prev_href = this.next_href;
       this.next_href = response.data._links.next.href
       console.log(this.artists)
       console.log(this.next_href)

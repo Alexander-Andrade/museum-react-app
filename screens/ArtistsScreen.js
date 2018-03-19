@@ -9,7 +9,7 @@ import {
 	View,
 	Button
 } from 'react-native';
-import { Header } from 'react-native-elements';
+import BasicHeader from '../components/BasicHeader'
 import { observer, inject } from 'mobx-react';
 
 
@@ -29,11 +29,7 @@ class ArtistsScreen extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Header
-					leftComponent={{ icon: 'menu', color: '#fff' , onPress: () => this.props.navigation.navigate('DrawerOpen') }}
-					centerComponent={{ text: 'Artists', style: { color: '#fff' } }}
-					rightComponent={{ icon: 'search', color: '#fff' }}
-				/>
+				<BasicHeader text = "Artists" />
 				<ScrollView>
 					<Text>Artists</Text>
 					<Button
