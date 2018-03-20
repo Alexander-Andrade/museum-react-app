@@ -26,12 +26,28 @@ class ArtistsScreen extends React.Component {
 		this.state = {};
 	}
 
+	renderImage () {
+		const { artistsModel } = this.props;
+		
+		if (artistsModel.artists.length > 0){
+			console.log(`href=${artistsModel.artists[0]._links.thumbnail.href}`)
+			return (<Image 
+							source={{uri: artistsModel.artists[0]._links.thumbnail.href}}
+							style={styles.image}
+							/>
+			) 
+		}
+		else {
+			return null
+		}
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
 				<BasicHeader text = "Artists" />
-				<ScrollView>
-					<Text>Artists</Text>
+				<ScrollView style={styles.container}>
+					{this.renderImage()}
 					<Button
 						title="Artworks"
 						onPress={() => this.props.navigation.navigate('Artworks')}
@@ -44,8 +60,13 @@ class ArtistsScreen extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
+		flexDirection: 'column'
 	},
+	image: {
+		width: 50,
+		height: 50
+	}
 
 })
 

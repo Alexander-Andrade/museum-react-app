@@ -1,12 +1,18 @@
 import React from 'react'
 import RootNavigation from './navigation/RootNavigation'
-import { autorun } from 'mobx'
+import { reaction } from 'mobx'
 import { Provider } from 'mobx-react'
 import ArtistsModel from './models/ArtistsModel'
+import auth from './models/Auth'
 
 const artistsModel = new ArtistsModel
 
-autorun(() => artistsModel.load())
+reaction( () => auth.xapp_token, 
+          (xapp_token, reaction) => { 
+            artistsModel.load()
+            reaction.dispose()
+          }
+        )
 
 class App extends React.Component {
   render() {
