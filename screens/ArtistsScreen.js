@@ -1,6 +1,5 @@
-import React from 'react';
+import React from 'react'
 import {
-	Image,
 	Platform,
 	ScrollView,
 	StyleSheet,
@@ -8,9 +7,10 @@ import {
 	TouchableOpacity,
 	View,
 	Button
-} from 'react-native';
+} from 'react-native'
 import BasicHeader from '../components/BasicHeader'
-import { observer, inject } from 'mobx-react';
+import { observer, inject } from 'mobx-react'
+import Artist from '../components/Artist'
 
 
 @inject("artistsModel") @observer
@@ -26,18 +26,15 @@ class ArtistsScreen extends React.Component {
 		this.state = {};
 	}
 
-	renderImage () {
-		const { artistsModel } = this.props;
-		
+	
+	renderArtists() {
+		const { artistsModel } = this.props
+
 		if (artistsModel.artists.length > 0){
-			console.log(`href=${artistsModel.artists[0]._links.thumbnail.href}`)
-			return (<Image 
-							source={{uri: artistsModel.artists[0]._links.thumbnail.href}}
-							style={styles.image}
-							/>
-			) 
-		}
-		else {
+			return artistsModel.artists.map((artist) => {
+				return (<Artist model={artist} key={artist.id}/>)
+			})
+		}	else {
 			return null
 		}
 	}
@@ -47,7 +44,7 @@ class ArtistsScreen extends React.Component {
 			<View style={styles.container}>
 				<BasicHeader text = "Artists" />
 				<ScrollView style={styles.container}>
-					{this.renderImage()}
+					{this.renderArtists()}
 					<Button
 						title="Artworks"
 						onPress={() => this.props.navigation.navigate('Artworks')}
@@ -62,10 +59,6 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		flexDirection: 'column'
-	},
-	image: {
-		width: 50,
-		height: 50
 	}
 
 })

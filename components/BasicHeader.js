@@ -1,6 +1,6 @@
-import React, { Component } from 'react'; 
+import React, { Component } from 'react' 
 import { withNavigation } from 'react-navigation'
-import { Header } from 'react-native-elements';
+import { Header } from 'react-native-elements'
 
 class BasicHeader extends Component {
 
