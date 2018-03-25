@@ -12,7 +12,7 @@ import BasicHeader from '../components/BasicHeader'
 import { observer, inject } from 'mobx-react'
 import { List, ListItem } from 'react-native-elements'
 import ArtsyImage from '../models/ArtsyImage'
-
+import _ from 'lodash'
 
 @inject("artistsModel") @observer
 class ArtistsScreen extends React.Component {
@@ -21,12 +21,11 @@ class ArtistsScreen extends React.Component {
 		title: 'Artists'
 	}
 	
+
 	constructor(props) {
 		super(props);
 		
-		this.state = {};
 	}
-
 	
 	renderArtistsList() {
 		const { artistsModel } = this.props
@@ -58,10 +57,22 @@ class ArtistsScreen extends React.Component {
 				<BasicHeader text = "Artists" />
 				<ScrollView style={styles.container}>
 					{this.renderArtistsList()}
-					<Button
-						title="Artworks"
-						onPress={() => this.props.navigation.navigate('Artworks')}
-					/>
+					<View style={{flexDirection: 'row', flex: 1}}>
+					<View>
+							<Button 
+								style={{flex: 1}}
+								title="<"
+								onPress={() => this.props.artistsModel.loadPrev() }
+							/>
+						</View>
+						<View>
+							<Button style={{flex: 1}}
+								title=">"
+								onPress={() => this.props.artistsModel.loadNext() }
+							/>
+						</View>
+					</View>
+					
 				</ScrollView>
 			</View>
 		);
