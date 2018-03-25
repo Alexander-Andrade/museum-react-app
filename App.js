@@ -9,7 +9,7 @@ const artistsModel = new ArtistsModel
 
 reaction( () => auth.xapp_token, 
           (xapp_token, reaction) => { 
-            artistsModel.load()
+            artistsModel.loadNext()
             reaction.dispose()
           }
         )

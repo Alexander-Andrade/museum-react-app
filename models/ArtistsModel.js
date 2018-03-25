@@ -9,7 +9,7 @@ class ArtistsModel {
   @observable next_href = `https://api.artsy.net/api/artists?artworks=true&sort=-trending&size=${this.size}`
   @observable prev_hrefs = []
 
-  async load() {
+  async _load() {
     const response = await axios.get(this.next_href, {
       headers: {
         "X-XAPP-Token": auth.xapp_token 
@@ -22,7 +22,7 @@ class ArtistsModel {
   async loadNext() {
     if (auth.xapp_token != null) {
       
-      const response = await this.load()
+      const response = await this._load()
 
       this.prev_hrefs.push(this.next_href) 
       this.next_href = response.data._links.next.href
@@ -35,12 +35,13 @@ class ArtistsModel {
   async loadPrev(){
     if (auth.xapp_token != null) {
       
-      this.next_href = this.prev_hrefs.pop()
-      const response = await this.load()
+      if(this.prev_hrefs.length != 0){
+        this.next_href = this.prev_hrefs.pop()
+        const response = await this._load()
+      }
 
     }
   }
 }
-
 
 export default ArtistsModel
