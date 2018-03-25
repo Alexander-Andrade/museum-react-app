@@ -1,11 +1,13 @@
-import React from 'react';
-import { DrawerNavigator } from 'react-navigation';
-import ArtistsScreen from '../screens/ArtistsScreen';
-import ArtworksScreen from '../screens/ArtworksScreen';
+import React from 'react'
+import { DrawerNavigator } from 'react-navigation'
+import ArtistsNavigator from './ArtistsNavigator'
+import ArtworksScreen from '../screens/ArtworksScreen'
+
+
 
 export default DrawerNavigator({
     Artists: {
-      screen: ArtistsScreen
+      screen: ArtistsNavigator
     },
     Artworks: {
       screen: ArtworksScreen

@@ -12,11 +12,12 @@ import Image from 'react-native-scalable-image'
 import Layout from '../constants/Layout'
 import ArtsyImage from '../models/ArtsyImage'
 
+
 class Artist extends Component {
 
   
 	renderImage () {
-		const { model } = this.props;
+		const { model } = this.props.navigation.state.params
     const image = new ArtsyImage(model._links.image.href)
 
     return (<Image 

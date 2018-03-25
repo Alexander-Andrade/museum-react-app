@@ -10,7 +10,8 @@ import {
 } from 'react-native'
 import BasicHeader from '../components/BasicHeader'
 import { observer, inject } from 'mobx-react'
-import Artist from '../components/Artist'
+import { List, ListItem } from 'react-native-elements'
+import ArtsyImage from '../models/ArtsyImage'
 
 
 @inject("artistsModel") @observer
@@ -27,13 +28,25 @@ class ArtistsScreen extends React.Component {
 	}
 
 	
-	renderArtists() {
+	renderArtistsList() {
 		const { artistsModel } = this.props
 
 		if (artistsModel.artists.length > 0){
-			return artistsModel.artists.map((artist) => {
-				return (<Artist model={artist} key={artist.id}/>)
-			})
+			return (
+				<List>
+				{
+					artistsModel.artists.map((artist) => {
+						const image_href = new ArtsyImage(artist._links.image.href).thumbnail()
+						return	<ListItem	 
+											avatar={{uri: image_href}} 
+											key={artist.id} 
+											title={artist.name}
+											onPress={() => this.props.navigation.navigate("Artist", { model: artist })}  />
+					})
+				}
+				</List>
+			)	
+		
 		}	else {
 			return null
 		}
@@ -44,7 +57,7 @@ class ArtistsScreen extends React.Component {
 			<View style={styles.container}>
 				<BasicHeader text = "Artists" />
 				<ScrollView style={styles.container}>
-					{this.renderArtists()}
+					{this.renderArtistsList()}
 					<Button
 						title="Artworks"
 						onPress={() => this.props.navigation.navigate('Artworks')}
