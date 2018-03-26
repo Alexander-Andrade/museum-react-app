@@ -30,7 +30,7 @@ class ArtistsScreen extends React.Component {
 	renderArtistsList() {
 		const { artistsModel } = this.props
 
-		if (artistsModel.artists.length > 0){
+		if (artistsModel.artists.length > 0) {
 			return (
 				<List>
 				{
@@ -57,16 +57,15 @@ class ArtistsScreen extends React.Component {
 				<BasicHeader text = "Artists" />
 				<ScrollView style={styles.container}>
 					{this.renderArtistsList()}
-					<View style={{flexDirection: 'row', flex: 1}}>
-					<View>
+					<View style={styles.buttonsPair}>
+						<View style={styles.pairedButton}>
 							<Button 
-								style={{flex: 1}}
 								title="<"
 								onPress={() => this.props.artistsModel.loadPrev() }
 							/>
 						</View>
-						<View>
-							<Button style={{flex: 1}}
+						<View style={styles.pairedButton}>
+							<Button
 								title=">"
 								onPress={() => this.props.artistsModel.loadNext() }
 							/>
@@ -83,8 +82,16 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		flexDirection: 'column'
+	},
+	buttonsPair: {
+		flex: 1,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	pairedButton: {
+		flex: 1
 	}
-
 })
 
 export default ArtistsScreen;
