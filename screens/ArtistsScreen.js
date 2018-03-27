@@ -30,11 +30,11 @@ class ArtistsScreen extends React.Component {
 	renderArtistsList() {
 		const { artistsModel } = this.props
 
-		if (artistsModel.artists.length > 0) {
+		if (artistsModel.list.length > 0) {
 			return (
 				<List>
 				{
-					artistsModel.artists.map((artist) => {
+					artistsModel.list.map((artist) => {
 						const image_href = new ArtsyImage(artist._links.image.href).thumbnail()
 						return	<ListItem	 
 											avatar={{uri: image_href}} 
