@@ -12,7 +12,6 @@ class ArtsyModel {
   constructor(start_href){
     this.next_href = start_href
     this.model_name = this.next_href.match(/api\/([a-z]+)\?/)[1]
-    console.log(`model ${this.model_name}`)
   }
 
   async _load() {
