@@ -8,4 +8,4 @@ class GenesModel extends ArtsyModel {
 
 }
 
-export default ArtworksModel
+export default GenesModel

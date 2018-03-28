@@ -1,8 +1,8 @@
 import React from 'react'
 import { DrawerNavigator } from 'react-navigation'
 import ArtistsNavigator from './ArtistsNavigator'
-import ArtworksScreen from '../screens/ArtworksScreen'
-
+import ArtworksNavigator from './ArtworksNavigator'
+import GenesNavigator from './GenesNavigator'
 
 
 export default DrawerNavigator({
@@ -10,8 +10,11 @@ export default DrawerNavigator({
       screen: ArtistsNavigator
     },
     Artworks: {
-      screen: ArtworksScreen
-    }
+      screen: ArtworksNavigator
+    },
+    // Genes: {
+    //   screen: GenesNavigator
+    // }
   },
   {
     initialRouteName: 'Artists'

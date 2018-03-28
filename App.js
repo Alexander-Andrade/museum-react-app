@@ -24,7 +24,10 @@ reaction( () => auth.xapp_token,
 class App extends React.Component {
   render() {
     return (
-      <Provider artistsModel = {artistsModel}>
+      <Provider 
+        artistsModel = {artistsModel}
+        artworksModel = {artworksModel}
+        genesModel = {genesModel}>
         <RootNavigation />
       </Provider>
     );

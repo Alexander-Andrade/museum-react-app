@@ -15,11 +15,11 @@ import { List, ListItem } from 'react-native-elements'
 import ArtsyImage from '../models/ArtsyImage'
 import _ from 'lodash'
 
-@inject("artistsModel") @observer
-class ArtistsScreen extends React.Component {
+@inject("genesModel") @observer
+class GenesScreen extends React.Component {
 	
 	static navigationOptions = {
-		title: 'Artists'
+		title: 'Genes'
 	}
 	
 
@@ -28,20 +28,20 @@ class ArtistsScreen extends React.Component {
 		
 	}
 	
-	renderArtistsList() {
-		const { artistsModel } = this.props
+	renderGenesList() {
+		const { genesModel } = this.props
 
-		if (artistsModel.list.length > 0) {
+		if (genesModel.list.length > 0) {
 			return (
 				<List>
 				{
-					artistsModel.list.map((artist) => {
-						const image_href = new ArtsyImage(artist._links.image.href).thumbnail()
-						return	<ListItem	 
-											avatar={{uri: image_href}} 
-											key={artist.id} 
-											title={artist.name}
-											onPress={() => this.props.navigation.navigate("Artist", { model: artist })}  />
+					genesModel.list.map((gene) => {
+						const image_href = new ArtsyImage(gene._links.image.href).thumbnail()
+						// return	<ListItem	 
+						// 					avatar={{uri: image_href}} 
+						// 					key={artist.id} 
+						// 					title={artist.name}
+						// 					onPress={() => this.props.navigation.navigate("Artist", { model: artist })}  />
 					})
 				}
 				</List>
@@ -55,12 +55,12 @@ class ArtistsScreen extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<BasicHeader text = "Artists" />
+				<BasicHeader text = "Genes" />
 				<ScrollView style={styles.container}>
-					{this.renderArtistsList()}
-					<PaginationButtons 
-						loadPrev={this.props.artistsModel.loadPrev.bind(this.props.artistsModel)}
-						loadNext={this.props.artistsModel.loadNext.bind(this.props.artistsModel)} />
+					{/* {this.renderGenesList()} */}
+					{/* <PaginationButtons 
+						loadPrev={this.props.genesModel.loadPrev}
+						loadNext={this.props.genesModel.loadNext} /> */}
 				</ScrollView>
 			</View>
 		);
@@ -74,4 +74,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default ArtistsScreen;
+export default GenesScreen

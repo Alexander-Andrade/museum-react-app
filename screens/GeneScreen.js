@@ -13,7 +13,7 @@ import Layout from '../constants/Layout'
 import ArtsyImage from '../models/ArtsyImage'
 import Paragraph from '../components/Paragraph'
 
-class Artist extends Component {
+class Gene extends Component {
 
   
 	renderImage (model) {
@@ -30,22 +30,7 @@ class Artist extends Component {
     const { model } = this.props.navigation.state.params
 
     return (
-      <ScrollView style={styles.artist}>
-        {this.renderImage(model)}
-        <Text h4>{model.name}</Text>
-          <Text>
-            {model.birthday}
-            {
-              !!model.deathday &&
-              <Text>- {model.deathday}</Text>
-            }
-          </Text>
-        <Divider />
-        {
-          !!model.biography && 
-          <Text><Paragraph>Biography: </Paragraph>{model.biography}</Text>
-        }
-        <Text><Paragraph>Hometown: </Paragraph>{model.hometown}</Text>
+      <ScrollView style={styles.gene}>
       </ScrollView>
     )
   }
@@ -54,9 +39,9 @@ class Artist extends Component {
 
 
 const styles = StyleSheet.create({
-	artist: {
-		flex: 1,
-	}
+  gene:{
+    
+  }
 })
 
-export default Artist
+export default Gene
