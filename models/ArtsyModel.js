@@ -15,9 +15,9 @@ class ArtsyModel {
     this.model_name = this.next_href.match(/api\/([a-z]+)\?/)[1]
   }
 
-  async _load() {
+  async load(href) {
     this.loading = true
-    const response = await axios.get(this.next_href, {
+    const response = await axios.get(href, {
       headers: {
         "X-XAPP-Token": auth.xapp_token 
       }
@@ -30,7 +30,7 @@ class ArtsyModel {
   async loadNext() {
     if (auth.xapp_token != null) {
       
-      const response = await this._load()
+      const response = await this.load(this.next_href)
 
       this.prev_hrefs.push(this.next_href) 
       this.next_href = response.data._links.next.href
@@ -45,7 +45,7 @@ class ArtsyModel {
       
       if(this.prev_hrefs.length != 0){
         this.next_href = this.prev_hrefs.pop()
-        const response = await this._load()
+        const response = await this.load(this.next_href)
       }
 
     }

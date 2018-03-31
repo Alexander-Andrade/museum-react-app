@@ -5,15 +5,15 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 	View,
-	Text
+  Text,
+  Modal
 } from 'react-native'
 import BasicHeader from '../components/BasicHeader'
 import PaginationButtons from '../components/PaginationButtons'
 import { observer, inject } from 'mobx-react'
-import { List, ListItem, Card, Button } from 'react-native-elements'
+import { List, ListItem, Card, Button, Divider } from 'react-native-elements'
 import ArtsyImage from '../models/ArtsyImage'
 import _ from 'lodash'
-import ImageViewer from 'react-native-image-zoom-viewer'
 
 
 @inject("artworksModel") @observer

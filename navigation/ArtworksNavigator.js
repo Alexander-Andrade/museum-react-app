@@ -1,14 +1,13 @@
 import { StackNavigator } from 'react-navigation'
 import ArtworksScreen from '../screens/ArtworksScreen'
-import ArtworkScreen from '../screens/ArtworkScreen'
-
+import ArtworkNavigator from './ArtworkNavigator'
 
 export default StackNavigator({
     Artworks: {
       screen: ArtworksScreen
     },
     Artwork: {
-      screen: ArtworkScreen
+      screen: ArtworkNavigator
     }
   },
   {

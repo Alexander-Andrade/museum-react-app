@@ -14,7 +14,11 @@ import ImageViewer from 'react-native-image-zoom-viewer'
 import Layout from '../constants/Layout'
 import ArtsyImage from '../models/ArtsyImage'
 import Paragraph from '../components/Paragraph'
+import ArtistsList from '../components/ArtistsList'
+import { observer, inject } from 'mobx-react'
 
+
+@inject("artistsModel") @observer
 class Artwork extends Component {
 
   constructor(props) {
@@ -23,6 +27,9 @@ class Artwork extends Component {
     this.state = {
       imageZoomed: false
     }
+
+    const { model } = this.props.navigation.state.params
+    this.props.artistsModel.load(model._links.artists.href)
   }
 
 	renderImage (model) {
@@ -57,6 +64,9 @@ class Artwork extends Component {
         <Text><Paragraph>Medium: </Paragraph>{model.medium}</Text>
         <Text><Paragraph>Collecting Institution: </Paragraph>{model.collecting_institution}</Text>
         <Text><Paragraph>Dimensions: </Paragraph>{model.dimensions.cm.text}</Text>
+        <Paragraph>Artists: </Paragraph>
+        <ArtistsList />
+        <Paragraph>Artists: </Paragraph>
       </ScrollView>
     )
   }
@@ -66,7 +76,8 @@ class Artwork extends Component {
 const styles = StyleSheet.create({
   artwork: {
     flex: 1,
-    paddingTop: 20
+    paddingTop: 20,
+    paddingBottom: 60
   }
 })
 
