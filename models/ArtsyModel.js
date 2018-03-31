@@ -8,6 +8,7 @@ class ArtsyModel {
   @observable list = []
   @observable next_href = ""
   @observable prev_hrefs = []
+  @observable loading = false
 
   constructor(start_href){
     this.next_href = start_href
@@ -15,11 +16,13 @@ class ArtsyModel {
   }
 
   async _load() {
+    this.loading = true
     const response = await axios.get(this.next_href, {
       headers: {
         "X-XAPP-Token": auth.xapp_token 
       }
     })
+    this.loading = false
     this.list = _.get(response, `data._embedded.${this.model_name}`) 
     return response
   }

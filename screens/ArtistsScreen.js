@@ -6,7 +6,8 @@ import {
 	Text,
 	TouchableOpacity,
 	View,
-	Button
+  Button,
+  ActivityIndicator
 } from 'react-native'
 import BasicHeader from '../components/BasicHeader'
 import PaginationButtons from '../components/PaginationButtons'
@@ -31,7 +32,7 @@ class ArtistsScreen extends React.Component {
 	renderArtistsList() {
 		const { artistsModel } = this.props
 
-		if (artistsModel.list.length > 0) {
+		if (artistsModel.list.length > 0 && !artistsModel.loading) {
 			return (
 				<List>
 				{
@@ -48,7 +49,7 @@ class ArtistsScreen extends React.Component {
 			)	
 		
 		}	else {
-			return null
+			return <ActivityIndicator size="large"/>
 		}
 	}
 
@@ -61,7 +62,7 @@ class ArtistsScreen extends React.Component {
 					loadPrev={this.props.artistsModel.loadPrev.bind(this.props.artistsModel)}
 					loadNext={this.props.artistsModel.loadNext.bind(this.props.artistsModel)} />
 			</ScrollView>
-		);
+		)
 	}
 }
 
