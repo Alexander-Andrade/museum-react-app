@@ -45,14 +45,18 @@ class Artwork extends Component {
      
 	}
 
-
   render() {
     const { model } = this.props.navigation.state.params
 
     return (
       <ScrollView style={styles.artwork}>
         <Text h4>{model.title}</Text>
+        <Text>{model.date}</Text>
         {this.renderImage(model)}
+        <Text><Paragraph>Category: </Paragraph>{model.category}</Text>
+        <Text><Paragraph>Medium: </Paragraph>{model.medium}</Text>
+        <Text><Paragraph>Collecting Institution: </Paragraph>{model.collecting_institution}</Text>
+        <Text><Paragraph>Dimensions: </Paragraph>{model.dimensions.cm.text}</Text>
       </ScrollView>
     )
   }

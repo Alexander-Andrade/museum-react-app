@@ -24,7 +24,6 @@ class PaginationButtons extends Component {
             />
           }
           text='Previous'
-          style={styles.button}
           onPress={() => this.props.loadPrev()}
         />
         <Button
@@ -37,7 +36,6 @@ class PaginationButtons extends Component {
           }
           iconRight
           text='Next'
-          style={styles.button}
           onPress={() => this.props.loadNext()}
         />
       </View>

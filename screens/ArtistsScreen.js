@@ -55,7 +55,7 @@ class ArtistsScreen extends React.Component {
 
 	render() {
 		return (
-			<ScrollView style={styles.container}>
+			<ScrollView contentContainerStyle={styles.container}>
 				<BasicHeader text = "Artists" />
 				{this.renderArtistsList()}
 				<PaginationButtons 
@@ -66,10 +66,14 @@ class ArtistsScreen extends React.Component {
 	}
 }
 
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		flexDirection: 'column'
+    flexDirection: 'column',
+    alignContent: 'center',
+    alignItems: 'stretch',
+    justifyContent: 'space-between',
 	}
 })
 
