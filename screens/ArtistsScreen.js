@@ -54,15 +54,13 @@ class ArtistsScreen extends React.Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
+			<ScrollView style={styles.container}>
 				<BasicHeader text = "Artists" />
-				<ScrollView style={styles.container}>
-					{this.renderArtistsList()}
-					<PaginationButtons 
-						loadPrev={this.props.artistsModel.loadPrev.bind(this.props.artistsModel)}
-						loadNext={this.props.artistsModel.loadNext.bind(this.props.artistsModel)} />
-				</ScrollView>
-			</View>
+				{this.renderArtistsList()}
+				<PaginationButtons 
+					loadPrev={this.props.artistsModel.loadPrev.bind(this.props.artistsModel)}
+					loadNext={this.props.artistsModel.loadNext.bind(this.props.artistsModel)} />
+			</ScrollView>
 		);
 	}
 }

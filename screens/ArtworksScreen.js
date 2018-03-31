@@ -13,6 +13,7 @@ import { observer, inject } from 'mobx-react'
 import { List, ListItem, Card, Button } from 'react-native-elements'
 import ArtsyImage from '../models/ArtsyImage'
 import _ from 'lodash'
+import ImageViewer from 'react-native-image-zoom-viewer'
 
 
 @inject("artworksModel") @observer
@@ -33,24 +34,18 @@ class ArtworksScreen extends React.Component {
 
 		if (artworksModel.list.length > 0) {
 			return (
-				<List>
+				<List style={styles.artworksList}>
 				{
 					artworksModel.list.map((artwork) => {
 						const image_href = new ArtsyImage(artwork._links.image.href).large()
 						return (
-							<Card
-								key={artwork.id}
-								text={artwork.title}
-								image={{uri: image_href}}>
-								<Button
-									style={{marginBottom: 10}}
-									backgroundColor='#03A9F4'
-									fontFamily='Lato'
-									buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-									title='VIEW' 
-									onPress={() => this.props.navigation.navigate("Artwork", { model: artwork })}
-									/>
-							</Card>
+							<TouchableOpacity onPress={() => this.props.navigation.navigate("Artwork", { model: artwork })}>
+								<Card
+									key={artwork.id}
+									title={artwork.title}
+									image={{uri: image_href}} >
+								</Card>
+							</TouchableOpacity>
 						)
 					})
 				}
@@ -65,15 +60,13 @@ class ArtworksScreen extends React.Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<BasicHeader text = "Artworks" />
-				<ScrollView style={styles.container}>
-					{this.renderArtworksList()}
-					{/* <PaginationButtons 
-						loadPrev={this.props.artworksModel.loadPrev}
-						loadNext={this.props.artworksModel.loadNext} /> */}
-				</ScrollView>
-			</View>
+			<ScrollView style={styles.container}>
+				<BasicHeader text="Artworks" />
+				{this.renderArtworksList()}
+				<PaginationButtons
+					loadPrev={this.props.artworksModel.loadPrev.bind(this.props.artworksModel)}
+					loadNext={this.props.artworksModel.loadNext.bind(this.props.artworksModel)} />
+			</ScrollView>
 		);
 	}
 }
@@ -82,7 +75,10 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		flexDirection: 'column'
-	}
+  },
+  artworksList: {
+    paddingBottom: 10
+  }
 })
 
 export default ArtworksScreen

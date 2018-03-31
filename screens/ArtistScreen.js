@@ -16,7 +16,8 @@ import Paragraph from '../components/Paragraph'
 class Artist extends Component {
 
   
-	renderImage (model) {
+	renderImage () {
+    const { model } = this.props.navigation.state.params
     const image = new ArtsyImage(model._links.image.href)
 
     return (<Image 
@@ -26,26 +27,41 @@ class Artist extends Component {
     ) 
 	}
 
-  render() {
+  renderHeader () {
     const { model } = this.props.navigation.state.params
+    
+    return (
+      <View>
+        <Text h4>{model.name}</Text>
+        <Text>
+          {model.birthday}
+          {
+            !!model.deathday &&
+            <Text>- {model.deathday}</Text>
+          }
+        </Text>
+      </View>
+      )
+  }
+
+  renderInfo() {
+    const { model } = this.props.navigation.state.params
+
+    {
+      !!model.biography && 
+      <Text><Paragraph>Biography: </Paragraph>{model.biography}</Text>
+    }
+    <Text><Paragraph>Hometown: </Paragraph>{model.hometown}</Text>
+  }
+
+  render() {
+    
 
     return (
       <ScrollView style={styles.artist}>
-        {this.renderImage(model)}
-        <Text h4>{model.name}</Text>
-          <Text>
-            {model.birthday}
-            {
-              !!model.deathday &&
-              <Text>- {model.deathday}</Text>
-            }
-          </Text>
-        <Divider />
-        {
-          !!model.biography && 
-          <Text><Paragraph>Biography: </Paragraph>{model.biography}</Text>
-        }
-        <Text><Paragraph>Hometown: </Paragraph>{model.hometown}</Text>
+        {this.renderHeader()}
+        {this.renderImage()}
+        {this.renderInfo()}
       </ScrollView>
     )
   }
@@ -55,7 +71,8 @@ class Artist extends Component {
 
 const styles = StyleSheet.create({
 	artist: {
-		flex: 1,
+    flex: 1,
+    paddingTop: 20
 	}
 })
 
