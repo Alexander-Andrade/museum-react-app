@@ -27,9 +27,10 @@ class Artwork extends Component {
     this.state = {
       imageZoomed: false
     }
-
+    
     const { model } = this.props.navigation.state.params
-    this.props.artistsModel.load(model._links.artists.href)
+    console.log(model._links.artists.href)
+    this.props.artistsModel.saveAndLoad(model._links.artists.href)
   }
 
 	renderImage (model) {
@@ -71,7 +72,13 @@ class Artwork extends Component {
     )
   }
 
+	componentWillUnmount () {
+    console.log("componentWillUnmount!!!!!!!!!!!!!!")
+		this.props.artistsModel.loadPrev()
+	}
+
 }
+
 
 const styles = StyleSheet.create({
   artwork: {

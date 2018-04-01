@@ -6,7 +6,8 @@ import _ from 'lodash'
 class ArtsyModel {
 
   @observable list = []
-  @observable next_href = ""
+  @observable next_href = null
+  @observable current_href = null
   @observable prev_hrefs = []
   @observable loading = false
 
@@ -23,19 +24,22 @@ class ArtsyModel {
       }
     })
     this.loading = false
-    this.list = _.get(response, `data._embedded.${this.model_name}`) 
+    this.list = _.get(response, `data._embedded.${this.model_name}`)
+    
     return response
   }
 
   async loadNext() {
     if (auth.xapp_token != null) {
-      
+  
       const response = await this.load(this.next_href)
-
-      this.prev_hrefs.push(this.next_href) 
+      
+      if (this.current_href != null) {
+        this.prev_hrefs.push(this.current_href)
+      }
+      
+      this.current_href = this.next_href 
       this.next_href = response.data._links.next.href
-      console.log(this.list)
-      console.log(this.next_href)
     }
   }
 
@@ -44,10 +48,21 @@ class ArtsyModel {
     if (auth.xapp_token != null) {
       
       if(this.prev_hrefs.length != 0){
-        this.next_href = this.prev_hrefs.pop()
-        const response = await this.load(this.next_href)
+        href = this.prev_hrefs.pop()
+        const response = await this.load(href)
+        this.current_href = href
+        this.next_href = response.data._links.next.href
       }
 
+    }
+  }
+
+  async saveAndLoad(href) {
+    if (auth.xapp_token != null) {
+
+      const response = await this.load(href)
+      this.prev_hrefs.push(this.current_href)
+      this.current_href = href
     }
   }
 }

@@ -37,9 +37,10 @@ class GenesScreen extends React.Component {
 						const image_href = new ArtsyImage(gene._links.image.href).tall()
 
 						return (
-							<TouchableOpacity onPress={() => this.props.navigation.navigate("Gene", { model: gene })}>
+							<TouchableOpacity 
+								key={gene.id}
+								onPress={() => this.props.navigation.navigate("Gene", { model: gene })}>
 								<Card
-									key={gene.id}
 									title={ !!gene.display_name ? gene.display_name : gene.name }
 									image={{uri: image_href}} >
 								</Card>
@@ -57,7 +58,7 @@ class GenesScreen extends React.Component {
 
 	render() {
 		return (
-			<ScrollView style={styles.container}>
+			<ScrollView contentContainerStyle={styles.container}>
 				<BasicHeader text = "Genes" />
         {this.renderGenesList()}
         <PaginationButtons 
@@ -71,7 +72,10 @@ class GenesScreen extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		flexDirection: 'column'
+    flexDirection: 'column',
+    alignContent: 'center',
+    alignItems: 'stretch',
+    justifyContent: 'space-between',
 	}
 })
 

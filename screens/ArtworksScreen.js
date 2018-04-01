@@ -39,7 +39,9 @@ class ArtworksScreen extends React.Component {
 					artworksModel.list.map((artwork) => {
 						const image_href = new ArtsyImage(artwork._links.image.href).large()
 						return (
-							<TouchableOpacity onPress={() => this.props.navigation.navigate("Artwork", { model: artwork })}>
+							<TouchableOpacity 
+								key={artwork.id}
+								onPress={() => this.props.navigation.navigate("Artwork", { model: artwork })}>
 								<Card
 									key={artwork.id}
 									title={artwork.title}
@@ -57,10 +59,9 @@ class ArtworksScreen extends React.Component {
 		}
 	}
 
-
 	render() {
 		return (
-			<ScrollView style={styles.container}>
+			<ScrollView contentContainerStyle={styles.container}>
 				<BasicHeader text="Artworks" />
 				{this.renderArtworksList()}
 				<PaginationButtons
@@ -69,12 +70,19 @@ class ArtworksScreen extends React.Component {
 			</ScrollView>
 		);
 	}
+
+	componentWillUnmount() {
+		
+	}
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		flexDirection: 'column'
+    flexDirection: 'column',
+    alignContent: 'center',
+    alignItems: 'stretch',
+    justifyContent: 'space-between',
   },
   artworksList: {
     paddingBottom: 10
