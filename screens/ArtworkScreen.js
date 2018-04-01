@@ -8,11 +8,9 @@ import {
   Button,
   Modal
 } from 'react-native'
-import { Text, Divider } from 'react-native-elements'
-import Image from 'react-native-scalable-image'
+import { Text } from 'react-native-elements'
 import ImageViewer from 'react-native-image-zoom-viewer'
-import Layout from '../constants/Layout'
-import ArtsyImage from '../models/ArtsyImage'
+import ArtsyImageView from '../components/ArtsyImageView'
 import Paragraph from '../components/Paragraph'
 import ArtistsList from '../components/ArtistsList'
 import { observer, inject } from 'mobx-react'
@@ -29,20 +27,18 @@ class Artwork extends Component {
     }
     
     const { model } = this.props.navigation.state.params
-    console.log(model._links.artists.href)
     this.props.artistsModel.saveAndLoad(model._links.artists.href)
   }
 
-	renderImage (model) {
-    const image = new ArtsyImage(model._links.image.href)
 
+	renderImage (model) {
+    console.log(model._links.image.href)
     return (
       this.state.imageZoomed == false ?
-        (<Image
-          source={{ uri: image.large() }}
-          width={Layout.window.width}
-          onPress={() => this.setState({ imageZoomed: true })}
-        />)
+        ( <TouchableOpacity onPress={() => this.setState({ imageZoomed: true })}> 
+            <ArtsyImageView imhref={model._links.image.href} size={'large'} />
+          </TouchableOpacity>
+        )
         :
         (
           <Modal visible={true} transparent={true} onRequestClose={() => this.setState({ imageZoomed: false })}>
@@ -73,7 +69,6 @@ class Artwork extends Component {
   }
 
 	componentWillUnmount () {
-    console.log("componentWillUnmount!!!!!!!!!!!!!!")
 		this.props.artistsModel.loadPrev()
 	}
 

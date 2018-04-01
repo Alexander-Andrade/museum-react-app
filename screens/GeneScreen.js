@@ -8,29 +8,20 @@ import {
 	Button
 } from 'react-native'
 import { Text, Divider } from 'react-native-elements'
-import Image from 'react-native-scalable-image'
 import Layout from '../constants/Layout'
-import ArtsyImage from '../models/ArtsyImage'
+import ArtsyImageView from '../components/ArtsyImageView'
 import Paragraph from '../components/Paragraph'
 
 class Gene extends Component {
-
-  
-	renderImage (model) {
-    const image = new ArtsyImage(model._links.image.href)
-
-    return (<Image 
-              source={{uri: image.large()}}
-              width={ Layout.window.width }
-            />
-    ) 
-	}
 
   render() {
     const { model } = this.props.navigation.state.params
 
     return (
-      <ScrollView style={styles.gene}>
+      <ScrollView contentContainerStyle={styles.gene}>
+        <Text h4>{model.display_name ? model.display_name : model.name }</Text>
+        <ArtsyImageView imhref={model._links.image.href} size={'tall'} />
+        <Text><Paragraph>Description: </Paragraph>{model.description}</Text>
       </ScrollView>
     )
   }
@@ -38,9 +29,11 @@ class Gene extends Component {
 }
 
 
+
 const styles = StyleSheet.create({
   gene: {
-    flex: 1
+    flex: 1,
+    paddingTop: 20
   }
 })
 

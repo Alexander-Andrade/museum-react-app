@@ -7,25 +7,23 @@ import {
 	View,
 	Button
 } from 'react-native'
-import { Text, Divider } from 'react-native-elements'
-import Image from 'react-native-scalable-image'
-import Layout from '../constants/Layout'
-import ArtsyImage from '../models/ArtsyImage'
+import { Text } from 'react-native-elements'
+import ArtsyImageView from '../components/ArtsyImageView'
 import Paragraph from '../components/Paragraph'
+import ArtworksList from '../components/ArtworksList'
+import { observer, inject } from 'mobx-react'
 
+
+
+@inject("artworksModel") @observer
 class Artist extends Component {
+ 
+  constructor(props) {
+    super(props)
 
-  
-	renderImage () {
     const { model } = this.props.navigation.state.params
-    const image = new ArtsyImage(model._links.image.href)
-
-    return (<Image 
-              source={{uri: image.large()}}
-              width={ Layout.window.width }
-            />
-    ) 
-	}
+    this.props.artworksModel.saveAndLoad(model._links.artworks.href)
+  }
 
   renderHeader () {
     const { model } = this.props.navigation.state.params
@@ -47,24 +45,33 @@ class Artist extends Component {
   renderInfo() {
     const { model } = this.props.navigation.state.params
 
-    {
-      !!model.biography && 
-      <Text><Paragraph>Biography: </Paragraph>{model.biography}</Text>
-    }
-    <Text><Paragraph>Hometown: </Paragraph>{model.hometown}</Text>
+    return (
+      <View>
+        {
+          !!model.biography && 
+          <Text><Paragraph>Biography: </Paragraph>{model.biography}</Text>
+        }
+        <Text><Paragraph>Hometown: </Paragraph>{model.hometown}</Text>
+        <ArtworksList />
+      </View>
+    )
   }
 
   render() {
-    
+    const { model } = this.props.navigation.state.params
 
     return (
       <ScrollView style={styles.artist}>
         {this.renderHeader()}
-        {this.renderImage()}
+        <ArtsyImageView imhref={model._links.image.href} size={'large'} />
         {this.renderInfo()}
       </ScrollView>
     )
   }
+
+	componentWillUnmount () {
+		this.props.artworksModel.loadPrev()
+	}
 
 }
 

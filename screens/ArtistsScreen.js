@@ -12,8 +12,6 @@ import {
 import BasicHeader from '../components/BasicHeader'
 import PaginationButtons from '../components/PaginationButtons'
 import { observer, inject } from 'mobx-react'
-import { List, ListItem } from 'react-native-elements'
-import ArtsyImage from '../models/ArtsyImage'
 import ArtistsList from '../components/ArtistsList'
 import _ from 'lodash'
 

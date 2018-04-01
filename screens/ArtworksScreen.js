@@ -12,7 +12,7 @@ import BasicHeader from '../components/BasicHeader'
 import PaginationButtons from '../components/PaginationButtons'
 import { observer, inject } from 'mobx-react'
 import { List, ListItem, Card, Button, Divider } from 'react-native-elements'
-import ArtsyImage from '../models/ArtsyImage'
+import imageHref from '../models/ArtsyImage'
 import _ from 'lodash'
 
 
@@ -37,7 +37,6 @@ class ArtworksScreen extends React.Component {
 				<ScrollView style={styles.artworksList}>
 				{
 					artworksModel.list.map((artwork) => {
-						const image_href = new ArtsyImage(artwork._links.image.href).large()
 						return (
 							<TouchableOpacity 
 								key={artwork.id}
@@ -45,7 +44,7 @@ class ArtworksScreen extends React.Component {
 								<Card
 									key={artwork.id}
 									title={artwork.title}
-									image={{uri: image_href}} >
+									image={{ uri: imageHref(artwork._links.image.href, 'large') }} >
 								</Card>
 							</TouchableOpacity>
 						)

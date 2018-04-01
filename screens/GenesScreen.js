@@ -11,7 +11,7 @@ import BasicHeader from '../components/BasicHeader'
 import PaginationButtons from '../components/PaginationButtons'
 import { observer, inject } from 'mobx-react'
 import { List, ListItem, Card, Button, Divider } from 'react-native-elements'
-import ArtsyImage from '../models/ArtsyImage'
+import imageHref from '../models/ArtsyImage'
 import _ from 'lodash'
 
 @inject("genesModel") @observer
@@ -34,15 +34,13 @@ class GenesScreen extends React.Component {
 				<ScrollView>
 				{
 					genesModel.list.map((gene) => {
-						const image_href = new ArtsyImage(gene._links.image.href).tall()
-
 						return (
 							<TouchableOpacity 
 								key={gene.id}
 								onPress={() => this.props.navigation.navigate("Gene", { model: gene })}>
 								<Card
 									title={ !!gene.display_name ? gene.display_name : gene.name }
-									image={{uri: image_href}} >
+									image={{ uri: imageHref(gene._links.image.href, 'tall') }} >
 								</Card>
 							</TouchableOpacity>
 						)
