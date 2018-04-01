@@ -11,6 +11,8 @@ import { Text } from 'react-native-elements'
 import ArtsyImageView from '../components/ArtsyImageView'
 import Paragraph from '../components/Paragraph'
 import ArtworksList from '../components/ArtworksList'
+import GenesList from '../components/GenesList'
+import Category from '../components/Category'
 import { observer, inject } from 'mobx-react'
 
 
@@ -52,10 +54,14 @@ class Artist extends Component {
           <Text><Paragraph>Biography: </Paragraph>{model.biography}</Text>
         }
         <Text><Paragraph>Hometown: </Paragraph>{model.hometown}</Text>
+        <Category text={'Artworks'} style={{marginBottom: -20}}/>
         <ArtworksList />
+        <Category text={'Genes'} style={{marginBottom: -20}}/>
+        <GenesList />
       </View>
     )
   }
+
 
   render() {
     const { model } = this.props.navigation.state.params
