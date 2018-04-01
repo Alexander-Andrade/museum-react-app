@@ -12,9 +12,9 @@ export default DrawerNavigator({
     Artworks: {
       screen: ArtworksNavigator
     },
-    // Genes: {
-    //   screen: GenesNavigator
-    // }
+    Genes: {
+      screen: GenesNavigator
+    }
   },
   {
     initialRouteName: 'Artists'

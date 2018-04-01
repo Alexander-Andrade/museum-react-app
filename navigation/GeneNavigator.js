@@ -1,18 +1,20 @@
 import { StackNavigator } from 'react-navigation'
-import ArtworkScreen from '../screens/ArtworkScreen'
+import GeneScreen from '../screens/GeneScreen'
 import ArtistScreen from '../screens/ArtistScreen'
 
 
+
+
 export default StackNavigator({
-    Artwork: {
-      screen: ArtworkScreen
+    Gene: {
+      screen: GeneScreen
     },
-    Artist: {
-      screen: ArtistScreen
-    }
+    // Artist: {
+    //   screen: ArtistScreen
+    // }
   },
   {
     headerMode : 'none',
-    initialRouteName: 'Artwork',
+    initialRouteName: 'Gene',
   }
 )

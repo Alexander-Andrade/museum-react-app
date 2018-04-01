@@ -34,7 +34,7 @@ class ArtworksScreen extends React.Component {
 
 		if (artworksModel.list.length > 0) {
 			return (
-				<List style={styles.artworksList}>
+				<ScrollView style={styles.artworksList}>
 				{
 					artworksModel.list.map((artwork) => {
 						const image_href = new ArtsyImage(artwork._links.image.href).large()
@@ -49,7 +49,7 @@ class ArtworksScreen extends React.Component {
 						)
 					})
 				}
-				</List>
+				</ScrollView>
 			)	
 		
 		}	else {

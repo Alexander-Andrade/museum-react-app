@@ -1,5 +1,5 @@
 import { StackNavigator } from 'react-navigation'
-import GeneScreen from '../screens/GeneScreen'
+import GeneNavigator from './GeneNavigator'
 import GenesScreen from '../screens/GenesScreen'
 
 export default StackNavigator({
@@ -7,7 +7,7 @@ export default StackNavigator({
       screen: GenesScreen
     },
     Gene: {
-      screen: GeneScreen
+      screen: GeneNavigator
     }
   },
   {

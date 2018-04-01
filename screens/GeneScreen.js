@@ -39,8 +39,8 @@ class Gene extends Component {
 
 
 const styles = StyleSheet.create({
-  gene:{
-    
+  gene: {
+    flex: 1
   }
 })
 

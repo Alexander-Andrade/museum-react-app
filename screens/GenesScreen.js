@@ -5,13 +5,12 @@ import {
 	StyleSheet,
 	Text,
 	TouchableOpacity,
-	View,
-	Button
+	View
 } from 'react-native'
 import BasicHeader from '../components/BasicHeader'
 import PaginationButtons from '../components/PaginationButtons'
 import { observer, inject } from 'mobx-react'
-import { List, ListItem } from 'react-native-elements'
+import { List, ListItem, Card, Button, Divider } from 'react-native-elements'
 import ArtsyImage from '../models/ArtsyImage'
 import _ from 'lodash'
 
@@ -22,7 +21,6 @@ class GenesScreen extends React.Component {
 		title: 'Genes'
 	}
 	
-
 	constructor(props) {
 		super(props);
 		
@@ -33,18 +31,23 @@ class GenesScreen extends React.Component {
 
 		if (genesModel.list.length > 0) {
 			return (
-				<List>
+				<ScrollView>
 				{
 					genesModel.list.map((gene) => {
-						const image_href = new ArtsyImage(gene._links.image.href).thumbnail()
-						// return	<ListItem	 
-						// 					avatar={{uri: image_href}} 
-						// 					key={artist.id} 
-						// 					title={artist.name}
-						// 					onPress={() => this.props.navigation.navigate("Artist", { model: artist })}  />
+						const image_href = new ArtsyImage(gene._links.image.href).tall()
+
+						return (
+							<TouchableOpacity onPress={() => this.props.navigation.navigate("Gene", { model: gene })}>
+								<Card
+									key={gene.id}
+									title={ !!gene.display_name ? gene.display_name : gene.name }
+									image={{uri: image_href}} >
+								</Card>
+							</TouchableOpacity>
+						)
 					})
 				}
-				</List>
+				</ScrollView>
 			)	
 		
 		}	else {
@@ -54,16 +57,14 @@ class GenesScreen extends React.Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
+			<ScrollView style={styles.container}>
 				<BasicHeader text = "Genes" />
-				<ScrollView style={styles.container}>
-					{/* {this.renderGenesList()} */}
-					{/* <PaginationButtons 
-						loadPrev={this.props.genesModel.loadPrev}
-						loadNext={this.props.genesModel.loadNext} /> */}
-				</ScrollView>
-			</View>
-		);
+        {this.renderGenesList()}
+        <PaginationButtons 
+          loadPrev={this.props.genesModel.loadPrev.bind(this.props.genesModel)}
+          loadNext={this.props.genesModel.loadNext.bind(this.props.genesModel)} />
+			</ScrollView>
+		)
 	}
 }
 
