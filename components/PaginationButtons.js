@@ -12,30 +12,21 @@ import {
 
 class PaginationButtons extends Component {
 
+
   render() {
     return (
       <View style={styles.buttonsPair}>
         <Button
-          icon={
-            <Icon
-              name='arrow-left'
-              size={15}
-              color='white'
-            />
-          }
-          text='Previous'
+          icon={{ name:'arrow-back' }}
+          title='Previous'
+          containerViewStyle={{width: '50%',  marginLeft: 0}}
           onPress={() => this.props.loadPrev()}
+          
         />
         <Button
-          icon={
-            <Icon
-              name='arrow-right'
-              size={15}
-              color='white'
-            />
-          }
-          iconRight
-          text='Next'
+          iconRight={{ name:'arrow-forward' }}
+          title='Next'
+          containerViewStyle={{width: '50%', marginRight: 0}}
           onPress={() => this.props.loadNext()}
         />
       </View>
@@ -48,7 +39,7 @@ const styles = StyleSheet.create({
 	buttonsPair: {
 		flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginTop: 20
 	}
 })

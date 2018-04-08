@@ -78,8 +78,7 @@ class Artwork extends Component {
 const styles = StyleSheet.create({
   artwork: {
     flex: 1,
-    paddingTop: 20,
-    paddingBottom: 60
+    paddingTop: 20
   }
 })
 
