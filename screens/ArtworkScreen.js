@@ -14,7 +14,7 @@ import ArtsyImageView from '../components/ArtsyImageView'
 import Paragraph from '../components/Paragraph'
 import ArtistsList from '../components/ArtistsList'
 import { observer, inject } from 'mobx-react'
-
+import Category from '../components/Category'
 
 @inject("artistsModel") @observer
 class Artwork extends Component {
@@ -61,9 +61,9 @@ class Artwork extends Component {
         <Text><Paragraph>Medium: </Paragraph>{model.medium}</Text>
         <Text><Paragraph>Collecting Institution: </Paragraph>{model.collecting_institution}</Text>
         <Text><Paragraph>Dimensions: </Paragraph>{model.dimensions.cm.text}</Text>
-        <Paragraph>Artists: </Paragraph>
+        <Category text={'Artists'} style={styles.category}/>
         <ArtistsList />
-        <Paragraph>Artists: </Paragraph>
+        <Category text={'Genes'} style={styles.category}/>
       </ScrollView>
     )
   }
@@ -78,7 +78,10 @@ class Artwork extends Component {
 const styles = StyleSheet.create({
   artwork: {
     flex: 1,
-    paddingTop: 20
+    marginTop: 20
+  },
+  category: {
+    marginBottom: -20
   }
 })
 

@@ -54,9 +54,9 @@ class Artist extends Component {
           <Text><Paragraph>Biography: </Paragraph>{model.biography}</Text>
         }
         <Text><Paragraph>Hometown: </Paragraph>{model.hometown}</Text>
-        <Category text={'Artworks'} style={{marginBottom: -20}}/>
+        <Category text={'Artworks'} style={styles.category}/>
         <ArtworksList />
-        <Category text={'Genes'} style={{marginBottom: -20}}/>
+        <Category text={'Genes'} style={styles.category}/>
         <GenesList />
       </View>
     )
@@ -82,11 +82,15 @@ class Artist extends Component {
 }
 
 
+
 const styles = StyleSheet.create({
 	artist: {
     flex: 1,
-    paddingTop: 20
-	}
+    marginTop: 20
+  },
+  category: {
+    marginBottom: -20
+  }
 })
 
 export default Artist

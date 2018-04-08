@@ -11,6 +11,7 @@ import { Text, Divider } from 'react-native-elements'
 import Layout from '../constants/Layout'
 import ArtsyImageView from '../components/ArtsyImageView'
 import Paragraph from '../components/Paragraph'
+import Category from '../components/Category'
 
 class Gene extends Component {
 
@@ -33,7 +34,7 @@ class Gene extends Component {
 const styles = StyleSheet.create({
   gene: {
     flex: 1,
-    paddingTop: 20
+    marginTop: 20
   }
 })
 
