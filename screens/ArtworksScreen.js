@@ -16,7 +16,8 @@ import imageHref from '../models/ArtsyImage'
 import _ from 'lodash'
 
 
-@inject("artworksModel") @observer
+@inject("artworksModel") 
+@observer
 class ArtworksScreen extends React.Component {
 	
 	static navigationOptions = {
@@ -32,7 +33,7 @@ class ArtworksScreen extends React.Component {
 	renderArtworksList() {
 		const { artworksModel } = this.props
 
-		if (artworksModel.list.length > 0) {
+		if (!_.isEmpty(artworksModel.list) && artworksModel.list.length > 0) {
 			return (
 				<ScrollView style={styles.artworksList}>
 				{
@@ -83,9 +84,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'space-between',
   },
-  artworksList: {
-    paddingBottom: 10
-  }
 })
 
 export default ArtworksScreen

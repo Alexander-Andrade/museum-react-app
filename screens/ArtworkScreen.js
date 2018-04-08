@@ -13,10 +13,14 @@ import ImageViewer from 'react-native-image-zoom-viewer'
 import ArtsyImageView from '../components/ArtsyImageView'
 import Paragraph from '../components/Paragraph'
 import ArtistsList from '../components/ArtistsList'
+import GenesList from '../components/GenesList'
 import { observer, inject } from 'mobx-react'
 import Category from '../components/Category'
+import artsyImageHref from '../models/ArtsyImage'
 
-@inject("artistsModel") @observer
+@inject("artistsModel")
+@inject("genesModel")  
+@observer
 class Artwork extends Component {
 
   constructor(props) {
@@ -28,6 +32,7 @@ class Artwork extends Component {
     
     const { model } = this.props.navigation.state.params
     this.props.artistsModel.saveAndLoad(model._links.artists.href)
+    this.props.genesModel.saveAndLoad(model._links.genes.href)
   }
 
 
@@ -42,7 +47,7 @@ class Artwork extends Component {
         :
         (
           <Modal visible={true} transparent={true} onRequestClose={() => this.setState({ imageZoomed: false })}>
-            <ImageViewer imageUrls={[{ url: image.large() }]} />
+            <ImageViewer imageUrls={[{ url: artsyImageHref(model._links.image.href, 'large') }]} />
           </Modal>
         )
     )
@@ -64,12 +69,14 @@ class Artwork extends Component {
         <Category text={'Artists'} style={styles.category}/>
         <ArtistsList />
         <Category text={'Genes'} style={styles.category}/>
+        <GenesList />
       </ScrollView>
     )
   }
 
 	componentWillUnmount () {
-		this.props.artistsModel.loadPrev()
+    this.props.artistsModel.loadPrev()
+    this.props.genesModel.loadPrev()
 	}
 
 }

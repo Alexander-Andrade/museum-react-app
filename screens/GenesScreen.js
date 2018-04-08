@@ -14,7 +14,8 @@ import { List, ListItem, Card, Button, Divider } from 'react-native-elements'
 import imageHref from '../models/ArtsyImage'
 import _ from 'lodash'
 
-@inject("genesModel") @observer
+@inject("genesModel") 
+@observer
 class GenesScreen extends React.Component {
 	
 	static navigationOptions = {
@@ -29,7 +30,7 @@ class GenesScreen extends React.Component {
 	renderGenesList() {
 		const { genesModel } = this.props
 
-		if (genesModel.list.length > 0) {
+		if (!_.isEmpty(genesModel.list) && genesModel.list.length > 0) {
 			return (
 				<ScrollView>
 				{

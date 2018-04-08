@@ -4,6 +4,8 @@ import imageHref from '../models/ArtsyImage'
 import { List, ListItem, Card, Button } from 'react-native-elements'
 import { ActivityIndicator } from 'react-native'
 import { observer, inject } from 'mobx-react'
+import _ from 'lodash'
+
 
 @inject("genesModel") @observer
 class GenesList extends Component {
@@ -12,7 +14,7 @@ class GenesList extends Component {
   render() {
     const { genesModel } = this.props
 
-    if (genesModel.list.length > 0 && !genesModel.loading) {
+    if (!_.isEmpty(genesModel.list) && genesModel.list.length > 0 && !genesModel.loading) {
       return (
         <List>
           {

@@ -57,12 +57,14 @@ class ArtsyModel {
     }
   }
 
+
   async saveAndLoad(href) {
     if (auth.xapp_token != null) {
 
       const response = await this.load(href)
       this.prev_hrefs.push(this.current_href)
       this.current_href = href
+      console.log(`list: ${this.list != undefined}`)
     }
   }
 }

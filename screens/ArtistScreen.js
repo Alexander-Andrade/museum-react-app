@@ -16,8 +16,9 @@ import Category from '../components/Category'
 import { observer, inject } from 'mobx-react'
 
 
-
-@inject("artworksModel") @observer
+@inject("artworksModel")
+@inject("genesModel")  
+@observer
 class Artist extends Component {
  
   constructor(props) {
@@ -25,6 +26,8 @@ class Artist extends Component {
 
     const { model } = this.props.navigation.state.params
     this.props.artworksModel.saveAndLoad(model._links.artworks.href)
+    this.props.genesModel.saveAndLoad(model._links.genes.href)
+    console.log('artist constr')
   }
 
   renderHeader () {
@@ -76,7 +79,9 @@ class Artist extends Component {
   }
 
 	componentWillUnmount () {
-		this.props.artworksModel.loadPrev()
+    this.props.artworksModel.loadPrev()
+    this.props.genesModel.loadPrev()
+    console.log('artist unmount')
 	}
 
 }

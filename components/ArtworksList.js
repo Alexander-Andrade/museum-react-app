@@ -4,6 +4,7 @@ import imageHref from '../models/ArtsyImage'
 import { List, ListItem, Card, Button } from 'react-native-elements'
 import { ActivityIndicator } from 'react-native'
 import { observer, inject } from 'mobx-react'
+import _ from 'lodash'
 
 @inject("artworksModel") @observer
 class ArtworkstsList extends Component {
@@ -12,7 +13,7 @@ class ArtworkstsList extends Component {
   render() {
     const { artworksModel } = this.props
 
-    if (artworksModel.list.length > 0 && !artworksModel.loading) {
+    if (!_.isEmpty( artworksModel.list) && artworksModel.list.length > 0 && !artworksModel.loading) {
       return (
         <List>
           {
