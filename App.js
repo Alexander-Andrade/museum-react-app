@@ -7,6 +7,7 @@ import ArtworksModel from './models/ArtworksModel'
 import GenesModel from './models/GenesModel'
 import auth from './models/Auth'
 
+
 const artistsModel = new ArtistsModel
 const artworksModel = new ArtworksModel
 const genesModel = new GenesModel

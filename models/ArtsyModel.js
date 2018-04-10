@@ -18,9 +18,11 @@ class ArtsyModel {
 
   async load(href) {
     this.loading = true
+    const token = await auth.token()
+    console.log(token)
     const response = await axios.get(href, {
       headers: {
-        "X-XAPP-Token": auth.xapp_token 
+        "X-XAPP-Token": token
       }
     })
     this.loading = false

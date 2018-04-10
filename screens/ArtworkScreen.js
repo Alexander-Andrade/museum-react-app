@@ -33,6 +33,7 @@ class Artwork extends Component {
     const { model } = this.props.navigation.state.params
     this.props.artistsModel.saveAndLoad(model._links.artists.href)
     this.props.genesModel.saveAndLoad(model._links.genes.href)
+    console.log('artwork constr')
   }
 
 
@@ -77,6 +78,7 @@ class Artwork extends Component {
 	componentWillUnmount () {
     this.props.artistsModel.loadPrev()
     this.props.genesModel.loadPrev()
+    console.log('artwork unmount')
 	}
 
 }
