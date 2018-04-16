@@ -16,9 +16,11 @@ class ArtsyModel {
     this.model_name = this.next_href.match(/api\/([a-z]+)\?/)[1]
   }
 
+  
   async load(href) {
     this.loading = true
     const token = await auth.token()
+    console.log(href)
     const response = await axios.get(href, {
       headers: {
         "X-XAPP-Token": token
@@ -65,7 +67,6 @@ class ArtsyModel {
       const response = await this.load(href)
       this.prev_hrefs.push(this.current_href)
       this.current_href = href
-      console.log(`list: ${this.list != undefined}`)
     }
   }
 }

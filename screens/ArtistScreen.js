@@ -14,6 +14,7 @@ import ArtworksList from '../components/ArtworksList'
 import GenesList from '../components/GenesList'
 import Category from '../components/Category'
 import { observer, inject } from 'mobx-react'
+import AccordionView from '../components/AccordionView'
 
 
 @inject("artworksModel")
@@ -49,22 +50,30 @@ class Artist extends Component {
 
   renderInfo() {
     const { model } = this.props.navigation.state.params
-
+    const sections = [
+    {
+      title: 'Artworks',
+      content: <ArtworksList 
+                  collection={this.props.artworksModel.list}  
+                  loading={this.props.artworksModel.loading} />
+    
+    },
+    {
+      title: 'Genes',
+      content: <GenesList 
+                  collection={this.props.genesModel.list} 
+                  loading={this.props.genesModel.loading}/>
+    }]
+    
     return (
       <View>
         {
           !!model.biography && 
           <Text><Paragraph>Biography: </Paragraph>{model.biography}</Text>
         }
-        <Text><Paragraph>Hometown: </Paragraph>{model.hometown}</Text>
-        <Category text={'Artworks'} style={styles.category}/>
-        <ArtworksList 
-          collection={this.props.artworksModel.list}
-          loading={this.props.artworksModel.loading} />
-        <Category text={'Genes'} style={styles.category}/>
-        <GenesList 
-          collection={this.props.genesModel.list}
-          loading={this.props.genesModel.loading}/>
+        <Text style={{marginBottom: 20}}><Paragraph>Hometown: </Paragraph>{model.hometown}</Text>
+        <AccordionView sections={sections} />
+
       </View>
     )
   }
@@ -91,14 +100,10 @@ class Artist extends Component {
 }
 
 
-
 const styles = StyleSheet.create({
 	artist: {
     flex: 1,
     marginTop: 20
-  },
-  category: {
-    marginBottom: -20
   }
 })
 

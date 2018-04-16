@@ -38,14 +38,14 @@ class Gene extends Component {
         <Text h4>{model.display_name ? model.display_name : model.name }</Text>
         <ArtsyImageView imhref={model._links.image.href} size={'tall'} />
         <Text><Paragraph>Description: </Paragraph>{model.description}</Text>
-        <Category text={'Artists'} style={styles.category}/>
+        <Category>Artists</Category>
         <ArtistsList 
 					collection={this.props.artistsModel.list} 
 					loading={this.props.artistsModel.loading}/>
-        <Category text={'Artworks'} style={styles.category}/>
+        <Category>Artworks</Category>
         <ArtworksList 
           collection={this.props.artworksModel.list} 
-					loading={this.props.artworksModel.loading}/>
+					loading={this.props.artworksModel.loading}/>/>
       </ScrollView>
     )
   }

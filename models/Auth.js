@@ -17,14 +17,13 @@ class Auth {
   }
 
 
-
   @action
   async fetchTokenFromApi() {
     try {
       const query = `https://api.artsy.net/api/tokens/xapp_token?client_id=${this.client_id}&client_secret=${this.client_secret}`
       const response = await axios.post(query)
-      this.xapp_token = response.data.token
       this.expires_at = response.data.expires_at
+      this.xapp_token = response.data.token
     } catch (e) {
       console.log(e)
     }
@@ -34,8 +33,9 @@ class Auth {
   async fetchTokenFromStorage() {
     try {
       const artsyToken = JSON.parse(await AsyncStorage.getItem('artsyToken'))
-      this.xapp_token = _.get(artsyToken, 'token', null)
+      console.log(artsyToken)
       this.expires_at = _.get(artsyToken, 'expires_at', null)
+      this.xapp_token = _.get(artsyToken, 'token', null)
     } catch (e) {
       console.log(e)
     }
@@ -64,14 +64,17 @@ class Auth {
 
 
   async token() {
-    await this.fetchTokenFromStorage()
-    if(!this.isValid()) {
-      await this.fetchTokenFromApi()
-      this.saveToStorage()
+    if(!this.isValid()){
+      await this.fetchTokenFromStorage()
+      if(!this.isValid()) {
+        await this.fetchTokenFromApi()
+        this.saveToStorage()
+      }
     }
     return this.xapp_token
   }
 }
+
 
 const auth = new Auth
 

@@ -7,7 +7,7 @@ class Category extends Component {
     return (
       <View style={styles.headerContainer}>
         {/* <Icon color="white" name="invert-colors" size={62} /> */}
-        <Text style={styles.heading}>{ this.props.text }</Text>
+        <Text {...this.props} style={styles.heading} />
       </View>
     )
   }
@@ -18,11 +18,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     // padding: 10,
-    // backgroundColor: 'blue',
+    backgroundColor: '#2288DC',
   },
   heading: {
-    // color: 'white',
-    marginTop: 20,
+    color: 'white',
+    marginTop: 10,
+    marginBottom: 10,
     fontSize: 22,
   }
 })
