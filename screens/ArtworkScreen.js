@@ -68,9 +68,13 @@ class Artwork extends Component {
         <Text><Paragraph>Collecting Institution: </Paragraph>{model.collecting_institution}</Text>
         <Text><Paragraph>Dimensions: </Paragraph>{model.dimensions.cm.text}</Text>
         <Category text={'Artists'} style={styles.category}/>
-        <ArtistsList />
+        <ArtistsList 
+					collection={this.props.artistsModel.list} 
+					loading={this.props.artistsModel.loading}/>
         <Category text={'Genes'} style={styles.category}/>
-        <GenesList />
+        <GenesList 
+          collection={this.props.genesModel.list} 
+					loading={this.props.genesModel.loading}/>
       </ScrollView>
     )
   }

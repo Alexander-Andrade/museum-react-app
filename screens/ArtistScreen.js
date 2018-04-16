@@ -58,7 +58,9 @@ class Artist extends Component {
         }
         <Text><Paragraph>Hometown: </Paragraph>{model.hometown}</Text>
         <Category text={'Artworks'} style={styles.category}/>
-        <ArtworksList />
+        <ArtworksList 
+          collection={this.artworksModel.list}
+          loading={this.artworksModel.loading} />
         <Category text={'Genes'} style={styles.category}/>
         <GenesList />
       </View>

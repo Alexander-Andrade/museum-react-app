@@ -39,9 +39,13 @@ class Gene extends Component {
         <ArtsyImageView imhref={model._links.image.href} size={'tall'} />
         <Text><Paragraph>Description: </Paragraph>{model.description}</Text>
         <Category text={'Artists'} style={styles.category}/>
-        <ArtistsList />
+        <ArtistsList 
+					collection={this.props.artistsModel.list} 
+					loading={this.props.artistsModel.loading}/>
         <Category text={'Artworks'} style={styles.category}/>
-        <ArtworksList />
+        <ArtworksList 
+          collection={this.props.artworksModel.list} 
+					loading={this.props.artworksModel.loading}/>
       </ScrollView>
     )
   }

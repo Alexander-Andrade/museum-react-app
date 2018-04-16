@@ -3,21 +3,19 @@ import { withNavigation } from 'react-navigation'
 import imageHref from '../models/ArtsyImage'
 import { List, ListItem, Card, Button } from 'react-native-elements'
 import { ActivityIndicator } from 'react-native'
-import { observer, inject } from 'mobx-react'
 import _ from 'lodash'
 
-@inject("artistsModel") @observer
+
 class ArtistsList extends Component {
 
-
   render() {
-    const { artistsModel } = this.props
+    const { collection, loading } = this.props
 
-    if (!_.isEmpty(artistsModel.list) && artistsModel.list.length > 0 && !artistsModel.loading) {
+    if (!_.isEmpty(collection) && collection.length > 0 && !loading) {
       return (
         <List>
           {
-            artistsModel.list.map((artist) => {
+            collection.map((artist) => {
               return <ListItem
                 avatar={{ uri: imageHref(artist._links.image.href, 'four_thirds') }}
                 key={artist.id}
