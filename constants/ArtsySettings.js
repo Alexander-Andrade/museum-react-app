@@ -1,3 +1,3 @@
 export default {
-  queryLimit: 5
+  queryLimit: 2
 }

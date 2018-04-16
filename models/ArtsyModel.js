@@ -25,13 +25,20 @@ class ArtsyModel {
       href = this._limitSize(href, limit)
     }
     console.log(href)
-    const response = await axios.get(href, {
-      headers: {
-        "X-XAPP-Token": token
-      }
-    })
+    let response = null
+    try{
+      response = await axios.get(href, {
+        headers: {
+          "X-XAPP-Token": token
+        },
+        timeout: 2000
+      })
+      
+      this.list = _.get(response, `data._embedded.${this.model_name}`, [])
+    }catch(e){
+      console.log(e)
+    }
     this.loading = false
-    this.list = _.get(response, `data._embedded.${this.model_name}`, [])
     
     return response
   }
