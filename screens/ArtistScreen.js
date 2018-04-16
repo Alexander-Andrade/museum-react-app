@@ -59,10 +59,12 @@ class Artist extends Component {
         <Text><Paragraph>Hometown: </Paragraph>{model.hometown}</Text>
         <Category text={'Artworks'} style={styles.category}/>
         <ArtworksList 
-          collection={this.artworksModel.list}
-          loading={this.artworksModel.loading} />
+          collection={this.props.artworksModel.list}
+          loading={this.props.artworksModel.loading} />
         <Category text={'Genes'} style={styles.category}/>
-        <GenesList />
+        <GenesList 
+          collection={this.props.genesModel.list}
+          loading={this.props.genesModel.loading}/>
       </View>
     )
   }
