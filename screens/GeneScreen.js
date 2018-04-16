@@ -15,6 +15,9 @@ import Category from '../components/Category'
 import ArtistsList from '../components/ArtistsList'
 import ArtworksList from '../components/ArtworksList'
 import { observer, inject } from 'mobx-react'
+import AccordionView from '../components/AccordionView'
+import ArtsySettings from '../constants/ArtsySettings'
+
 
 @inject("artistsModel") 
 @inject("artworksModel")
@@ -25,27 +28,35 @@ class Gene extends Component {
     super(props)
 
     const { model } = this.props.navigation.state.params
-    this.props.artistsModel.saveAndLoad(model._links.artists.href)
-    this.props.artworksModel.saveAndLoad(model._links.artworks.href)
+    this.props.artistsModel.saveAndLoad(model._links.artists.href, ArtsySettings.queryLimit)
+    this.props.artworksModel.saveAndLoad(model._links.artworks.href, ArtsySettings.queryLimit)
     console.log('genes constr')
   }
 
   render() {
     const { model } = this.props.navigation.state.params
 
+    const sections = [
+      {
+        title: 'Artists',
+        content: <ArtistsList 
+                  collection={this.props.artistsModel.list}  
+                  loading={this.props.artistsModel.loading} />
+      
+      },
+      {
+        title: 'Artworks',
+        content: <ArtworksList 
+                  collection={this.props.artworksModel.list} 
+                  loading={this.props.artworksModel.loading}/>
+      }]
+
     return (
       <ScrollView style={styles.gene}>
         <Text h4>{model.display_name ? model.display_name : model.name }</Text>
         <ArtsyImageView imhref={model._links.image.href} size={'tall'} />
-        <Text><Paragraph>Description: </Paragraph>{model.description}</Text>
-        <Category>Artists</Category>
-        <ArtistsList 
-					collection={this.props.artistsModel.list} 
-					loading={this.props.artistsModel.loading}/>
-        <Category>Artworks</Category>
-        <ArtworksList 
-          collection={this.props.artworksModel.list} 
-					loading={this.props.artworksModel.loading}/>/>
+        <Text style={{marginBottom: 20}}><Paragraph>Description: </Paragraph>{model.description}</Text>
+        <AccordionView sections={sections} />
       </ScrollView>
     )
   }

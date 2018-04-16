@@ -2,6 +2,7 @@ import {observable, action} from 'mobx'
 import auth from './Auth'
 import axios from 'axios'
 import _ from 'lodash'
+import URL from 'url-parse'
 
 class ArtsyModel {
 
@@ -16,10 +17,13 @@ class ArtsyModel {
     this.model_name = this.next_href.match(/api\/([a-z]+)\?/)[1]
   }
 
-  
-  async load(href) {
+
+  async load(href, limit = null) {
     this.loading = true
     const token = await auth.token()
+    if(limit != null){
+      href = this._limitSize(href, limit)
+    }
     console.log(href)
     const response = await axios.get(href, {
       headers: {
@@ -46,7 +50,14 @@ class ArtsyModel {
     }
   }
 
-  
+  _limitSize(href, limit) {
+    let url = new URL(href, true)
+    query = url.query
+    query.size = limit.toString()
+    url.set('query',query)
+    return url.href
+  }
+
   async loadPrev(){
     if (auth.xapp_token != null) {
       
@@ -61,11 +72,11 @@ class ArtsyModel {
   }
 
 
-  async saveAndLoad(href) {
+  async saveAndLoad(href, limit = null) {
     if (auth.xapp_token != null) {
 
-      const response = await this.load(href)
       this.prev_hrefs.push(this.current_href)
+      const response = await this.load(href, limit)
       this.current_href = href
     }
   }
