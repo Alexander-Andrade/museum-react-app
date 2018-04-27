@@ -15,10 +15,10 @@ import GenesList from '../components/GenesList'
 import Category from '../components/Category'
 import { observer, inject } from 'mobx-react'
 import AccordionView from '../components/AccordionView'
+import ArtsyModel from '../models/ArtsyModel'
+import ArtsySettings from '../constants/ArtsySettings'
 
-
-@inject("artworksModel")
-@inject("genesModel")  
+  
 @observer
 class Artist extends Component {
  
@@ -26,9 +26,22 @@ class Artist extends Component {
     super(props)
 
     const { model } = this.props.navigation.state.params
-    this.props.artworksModel.saveAndLoad(model._links.artworks.href)
-    this.props.genesModel.saveAndLoad(model._links.genes.href)
-    console.log('artist constr')
+    
+    this.state = {
+      artworksModel: new ArtsyModel({
+        collection:'artworks', 
+        href: model._links.artworks.href, 
+        limit: ArtsySettings.queryLimit
+      }),
+      genesModel: new ArtsyModel({
+        collection: 'genes',
+        href: model._links.genes.href, 
+        limit: ArtsySettings.queryLimit
+      })
+    }
+    
+    this.state.artworksModel.loadNext();
+    this.state.genesModel.loadNext();
   }
 
   renderHeader () {
@@ -54,15 +67,15 @@ class Artist extends Component {
     {
       title: 'Artworks',
       content: <ArtworksList 
-                  collection={this.props.artworksModel.list}  
-                  loading={this.props.artworksModel.loading} />
+                  collection={this.state.artworksModel.list}  
+                  loading={this.state.artworksModel.loading} />
     
     },
     {
       title: 'Genes',
       content: <GenesList 
-                  collection={this.props.genesModel.list} 
-                  loading={this.props.genesModel.loading}/>
+                  collection={this.state.genesModel.list} 
+                  loading={this.state.genesModel.loading}/>
     }]
     
     return (
@@ -90,13 +103,6 @@ class Artist extends Component {
       </ScrollView>
     )
   }
-
-	componentWillUnmount () {
-    this.props.artworksModel.loadPrev()
-    this.props.genesModel.loadPrev()
-    console.log('artist unmount')
-	}
-
 }
 
 

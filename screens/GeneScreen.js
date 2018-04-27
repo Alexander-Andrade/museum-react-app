@@ -16,11 +16,10 @@ import ArtistsList from '../components/ArtistsList'
 import ArtworksList from '../components/ArtworksList'
 import { observer, inject } from 'mobx-react'
 import AccordionView from '../components/AccordionView'
+import ArtsyModel from '../models/ArtsyModel'
 import ArtsySettings from '../constants/ArtsySettings'
 
 
-@inject("artistsModel") 
-@inject("artworksModel")
 @observer
 class Gene extends Component {
 
@@ -28,9 +27,17 @@ class Gene extends Component {
     super(props)
 
     const { model } = this.props.navigation.state.params
-    this.props.artistsModel.saveAndLoad(model._links.artists.href, ArtsySettings.queryLimit)
-    this.props.artworksModel.saveAndLoad(model._links.artworks.href, ArtsySettings.queryLimit)
-    console.log('genes constr')
+
+    this.state = {
+      artistsModel: new ArtsyModel({collection: 'artists',
+      href: model._links.artists.href,
+      limit: ArtsySettings.queryLimit
+    }),
+      artworksModel: new ArtsyModel({collection: 'artworks',
+      href: model._links.artworks.href, 
+      limit: ArtsySettings.queryLimit
+    })
+    }
   }
 
   render() {
@@ -40,15 +47,15 @@ class Gene extends Component {
       {
         title: 'Artists',
         content: <ArtistsList 
-                  collection={this.props.artistsModel.list}  
-                  loading={this.props.artistsModel.loading} />
+                  collection={this.state.artistsModel.list}  
+                  loading={this.state.artistsModel.loading} />
       
       },
       {
         title: 'Artworks',
         content: <ArtworksList 
-                  collection={this.props.artworksModel.list} 
-                  loading={this.props.artworksModel.loading}/>
+                  collection={this.state.artworksModel.list} 
+                  loading={this.state.artworksModel.loading}/>
       }]
 
     return (
@@ -60,13 +67,6 @@ class Gene extends Component {
       </ScrollView>
     )
   }
-
-
-	componentWillUnmount () {
-    this.props.artistsModel.loadPrev()
-    this.props.artworksModel.loadPrev()
-    console.log('genes unmount')
-	}
 
 }
 

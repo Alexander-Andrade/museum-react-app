@@ -3,6 +3,7 @@ import auth from './Auth'
 import axios from 'axios'
 import _ from 'lodash'
 import URL from 'url-parse'
+import ArtsySettings from '../constants/ArtsySettings'
 
 class ArtsyModel {
 
@@ -12,18 +13,20 @@ class ArtsyModel {
   @observable prev_hrefs = []
   @observable loading = false
 
-  constructor(start_href){
-    this.next_href = start_href
-    this.model_name = this.next_href.match(/api\/([a-z]+)\?/)[1]
+  constructor(params){
+    this.next_href = params.href
+    this.limit = _.isEmpty(params.limit) ?  ArtsySettings.queryLimit : params.limit
+    this.collection = params.collection 
   }
 
 
-  async load(href, limit = null) {
+
+  async load(href) {
     this.loading = true
     const token = await auth.token()
-    if(limit != null){
-      href = this._limitSize(href, limit)
-    }
+    
+    href = this._limitSize(href)
+    
     console.log(href)
     let response = null
     try{
@@ -34,7 +37,7 @@ class ArtsyModel {
         timeout: 2000
       })
       
-      this.list = _.get(response, `data._embedded.${this.model_name}`, [])
+      this.list = _.get(response, `data._embedded.${this.collection}`, [])
     }catch(e){
       console.log(e)
     }
@@ -57,10 +60,10 @@ class ArtsyModel {
     }
   }
 
-  _limitSize(href, limit) {
+  _limitSize(href) {
     let url = new URL(href, true)
     query = url.query
-    query.size = limit.toString()
+    query.size = this.limit.toString()
     url.set('query',query)
     return url.href
   }
@@ -79,14 +82,14 @@ class ArtsyModel {
   }
 
 
-  async saveAndLoad(href, limit = null) {
-    if (auth.xapp_token != null) {
+  // async saveAndLoad(href) {
+  //   if (auth.xapp_token != null) {
 
-      this.prev_hrefs.push(this.current_href)
-      const response = await this.load(href, limit)
-      this.current_href = href
-    }
-  }
+  //     this.prev_hrefs.push(this.current_href)
+  //     const response = await this.load(href, limit)
+  //     this.current_href = href
+  //   }
+  // }
 }
 
 export default ArtsyModel

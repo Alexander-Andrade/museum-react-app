@@ -17,9 +17,11 @@ import GenesList from '../components/GenesList'
 import { observer, inject } from 'mobx-react'
 import Category from '../components/Category'
 import artsyImageHref from '../models/ArtsyImage'
+import AccordionView from '../components/AccordionView'
+import ArtsyModel from '../models/ArtsyModel'
+import ArtsySettings from '../constants/ArtsySettings'
 
-@inject("artistsModel")
-@inject("genesModel")  
+
 @observer
 class Artwork extends Component {
 
@@ -31,9 +33,19 @@ class Artwork extends Component {
     }
     
     const { model } = this.props.navigation.state.params
-    this.props.artistsModel.saveAndLoad(model._links.artists.href)
-    this.props.genesModel.saveAndLoad(model._links.genes.href)
-    console.log('artwork constr')
+    
+    this.state = {
+      artistsModel: new ArtsyModel({
+        collection: 'artists',
+        href: model._links.artists.href,
+        limit: ArtsySettings.queryLimit
+      }),
+      genesModel: new ArtsyModel({
+        collection: 'genes',
+        href: model._links.genes.href,
+        limit: ArtsySettings.queryLimit
+      })
+    }
   }
 
 
@@ -62,15 +74,15 @@ class Artwork extends Component {
       {
         title: 'Artists',
         content: <ArtistsList 
-                  collection={this.props.artistsModel.list}  
-                  loading={this.props.artistsModel.loading} />
+                  collection={this.state.artistsModel.list}  
+                  loading={this.state.artistsModel.loading} />
       
       },
       {
         title: 'Genes',
         content: <GenesList 
-                  collection={this.props.genesModel.list} 
-                  loading={this.props.genesModel.loading}/>
+                  collection={this.state.genesModel.list} 
+                  loading={this.state.genesModel.loading}/>
       }]
 
     return (
@@ -81,24 +93,11 @@ class Artwork extends Component {
         <Text><Paragraph>Category: </Paragraph>{model.category}</Text>
         <Text><Paragraph>Medium: </Paragraph>{model.medium}</Text>
         <Text><Paragraph>Collecting Institution: </Paragraph>{model.collecting_institution}</Text>
-        <Text><Paragraph>Dimensions: </Paragraph>{model.dimensions.cm.text}</Text>
-        <Category>Artists</Category>
-        {/* <ArtistsList 
-					collection={this.props.artistsModel.list} 
-					loading={this.props.artistsModel.loading}/>
-        <Category>Genes</Category>
-        <GenesList 
-          collection={this.props.genesModel.list} 
-					loading={this.props.genesModel.loading}/> */}
+        <Text style={{marginBottom: 20}}><Paragraph>Dimensions: </Paragraph>{model.dimensions.cm.text}</Text>
+        <AccordionView sections={sections} />
       </ScrollView>
     )
   }
-
-	componentWillUnmount () {
-    this.props.artistsModel.loadPrev()
-    this.props.genesModel.loadPrev()
-    console.log('artwork unmount')
-	}
 
 }
 
