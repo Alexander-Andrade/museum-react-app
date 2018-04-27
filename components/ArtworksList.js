@@ -6,18 +6,18 @@ import { ActivityIndicator } from 'react-native'
 import { observer, inject } from 'mobx-react'
 import _ from 'lodash'
 
-@inject("artworksModel") @observer
+@observer
 class ArtworkstsList extends Component {
 
   
   render() {
-    const { artworksModel } = this.props
+    const { collection, loading } = this.props
 
-    if (!_.isEmpty( artworksModel.list) && artworksModel.list.length > 0 && !artworksModel.loading) {
+    if (!_.isEmpty( collection) && collection.length > 0 && !loading) {
       return (
         <List>
           {
-            artworksModel.list.map((artwork) => {
+            collection.map((artwork) => {
               return <ListItem
                 avatar={{ uri: imageHref(artwork._links.image.href, 'small') }}
                 key={artwork.id}

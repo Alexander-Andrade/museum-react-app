@@ -27,6 +27,7 @@ class Artist extends Component {
 
     const { model } = this.props.navigation.state.params
     
+    
     this.state = {
       artworksModel: new ArtsyModel({
         collection:'artworks', 

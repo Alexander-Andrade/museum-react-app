@@ -34,10 +34,11 @@ class ArtsyModel {
         headers: {
           "X-XAPP-Token": token
         },
-        timeout: 2000
+        timeout: 3000
       })
       
       this.list = _.get(response, `data._embedded.${this.collection}`, [])
+      console.log(this.list.map((el)=> el.slug || el.name))
     }catch(e){
       console.log(e)
     }

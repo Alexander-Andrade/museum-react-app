@@ -3,22 +3,23 @@ import { withNavigation } from 'react-navigation'
 import imageHref from '../models/ArtsyImage'
 import { List, ListItem, Card, Button } from 'react-native-elements'
 import { ActivityIndicator } from 'react-native'
-import { observer, inject } from 'mobx-react'
 import _ from 'lodash'
+import { observer, inject } from 'mobx-react'
 
-
-@inject("genesModel") @observer
+@observer
 class GenesList extends Component {
 
   
   render() {
-    const { genesModel } = this.props
+    const { collection, loading } = this.props
 
-    if (!_.isEmpty(genesModel.list) && genesModel.list.length > 0 && !genesModel.loading) {
+    if (!_.isEmpty(collection) && collection.length > 0 && !loading) {
+      console.log("collection")
+
       return (
         <List>
           {
-            genesModel.list.map((gene) => {
+            collection.map((gene) => {
               return <ListItem
                 avatar={{ uri: imageHref(gene._links.image.href, 'thumb') }}
                 key={gene.id}
