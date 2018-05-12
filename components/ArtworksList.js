@@ -3,10 +3,9 @@ import { withNavigation } from 'react-navigation'
 import imageHref from '../models/ArtsyImage'
 import { List, ListItem, Card, Button } from 'react-native-elements'
 import { ActivityIndicator } from 'react-native'
-import { observer, inject } from 'mobx-react'
 import _ from 'lodash'
 
-@observer
+
 class ArtworkstsList extends Component {
 
   
@@ -15,7 +14,7 @@ class ArtworkstsList extends Component {
 
     if (!_.isEmpty( collection) && collection.length > 0 && !loading) {
       return (
-        <List>
+        <List containerStyle={{marginTop: 0}}>
           {
             collection.map((artwork) => {
               return <ListItem

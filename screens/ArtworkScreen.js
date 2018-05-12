@@ -46,6 +46,9 @@ class Artwork extends Component {
         limit: ArtsySettings.queryLimit
       })
     }
+
+    this.state.artistsModel.loadNext();
+    this.state.genesModel.loadNext();
   }
 
 

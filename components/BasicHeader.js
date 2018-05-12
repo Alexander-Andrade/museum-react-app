@@ -12,6 +12,7 @@ class BasicHeader extends Component {
     }
   }
 
+
   render() {
     return this.state.searchMode == false ?
       (<Header
@@ -22,9 +23,8 @@ class BasicHeader extends Component {
       :
       (
         <Header
-        leftComponent={{ icon: 'menu', color: '#fff', onPress: () => this.props.navigation.navigate('DrawerOpen') }}
+        leftComponent={{ icon: 'arrow-back', color: '#fff', onPress: () => this.setState({ searchMode: false}) }}
         centerComponent={{ text: this.props.text, style: { color: '#fff' } }}
-        rightComponent={{ icon: 'search', color: '#fff', onPress: () => this.setState({ searchMode: true}) }}
       />
       )
   }

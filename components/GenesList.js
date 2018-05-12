@@ -4,9 +4,7 @@ import imageHref from '../models/ArtsyImage'
 import { List, ListItem, Card, Button } from 'react-native-elements'
 import { ActivityIndicator } from 'react-native'
 import _ from 'lodash'
-import { observer, inject } from 'mobx-react'
 
-@observer
 class GenesList extends Component {
 
   
@@ -17,7 +15,7 @@ class GenesList extends Component {
       console.log("collection")
 
       return (
-        <List>
+        <List containerStyle={{marginTop: 0}}>
           {
             collection.map((gene) => {
               return <ListItem

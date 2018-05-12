@@ -69,15 +69,18 @@ class Artist extends Component {
       title: 'Artworks',
       content: <ArtworksList 
                   collection={this.state.artworksModel.list}  
-                  loading={this.state.artworksModel.loading} />
+                  loading={this.state.artworksModel.loading} 
+                  containerStyle={{ marginTop: -20 }}/>
     
     },
     {
       title: 'Genes',
       content: <GenesList 
                   collection={this.state.genesModel.list} 
-                  loading={this.state.genesModel.loading}/>
+                  loading={this.state.genesModel.loading}
+                  containerStyle={{ marginTop: -20 }}/>
     }]
+    
     
     return (
       <View>

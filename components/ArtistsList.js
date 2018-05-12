@@ -13,7 +13,7 @@ class ArtistsList extends Component {
 
     if (!_.isEmpty(collection) && collection.length > 0 && !loading) {
       return (
-        <List>
+        <List containerStyle={{marginTop: 0}}>
           {
             collection.map((artist) => {
               return <ListItem

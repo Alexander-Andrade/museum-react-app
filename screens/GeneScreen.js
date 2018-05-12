@@ -29,15 +29,20 @@ class Gene extends Component {
     const { model } = this.props.navigation.state.params
 
     this.state = {
-      artistsModel: new ArtsyModel({collection: 'artists',
-      href: model._links.artists.href,
-      limit: ArtsySettings.queryLimit
+      artistsModel: new ArtsyModel({
+        collection: 'artists',
+        href: model._links.artists.href,
+        limit: ArtsySettings.queryLimit
     }),
-      artworksModel: new ArtsyModel({collection: 'artworks',
-      href: model._links.artworks.href, 
-      limit: ArtsySettings.queryLimit
+      artworksModel: new ArtsyModel({
+        collection: 'artworks',
+        href: model._links.artworks.href, 
+        limit: ArtsySettings.queryLimit
     })
     }
+
+    this.state.artistsModel.loadNext();
+    this.state.artworksModel.loadNext();
   }
 
   render() {
