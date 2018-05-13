@@ -25,7 +25,7 @@ class Auth {
       this.expires_at = response.data.expires_at
       this.xapp_token = response.data.token
     } catch (e) {
-      console.log(e)
+      // console.log(e)
     }
   }
   
@@ -33,11 +33,11 @@ class Auth {
   async fetchTokenFromStorage() {
     try {
       const artsyToken = JSON.parse(await AsyncStorage.getItem('artsyToken'))
-      console.log(artsyToken)
+      // console.log(artsyToken)
       this.expires_at = _.get(artsyToken, 'expires_at', null)
       this.xapp_token = _.get(artsyToken, 'token', null)
     } catch (e) {
-      console.log(e)
+      // console.log(e)
     }
   }
 
@@ -58,7 +58,7 @@ class Auth {
         expires_at: this.expires_at
       }))
     } catch (e) {
-      console.log(e)
+      // console.log(e)
     }
   }
 

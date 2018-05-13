@@ -12,7 +12,7 @@ class ArtworkstsList extends Component {
   render() {
     const { collection, loading } = this.props
 
-    if (!_.isEmpty( collection) && collection.length > 0 && !loading) {
+    if (!_.isEmpty( collection) && !loading) {
       return (
         <List containerStyle={{marginTop: 0}}>
           {

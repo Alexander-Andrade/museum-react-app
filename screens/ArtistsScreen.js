@@ -13,9 +13,13 @@ import BasicHeader from '../components/BasicHeader'
 import PaginationButtons from '../components/PaginationButtons'
 import { observer, inject } from 'mobx-react'
 import ArtistsList from '../components/ArtistsList'
+import ScrollViewScreenContainer from '../components/ScrollViewScreenContainer'
+import SearchResultsList from '../components/SearchResultsList'
 import _ from 'lodash'
 
-@inject("artistsModel") @observer
+@inject("artistsModel")
+@inject("artsySearch")  
+@observer
 class ArtistsScreen extends React.Component {
 	
 	static navigationOptions = {
@@ -28,30 +32,38 @@ class ArtistsScreen extends React.Component {
 		
 	}
 	
-	render() {
-		return (
-			<ScrollView contentContainerStyle={styles.container}>
-				<BasicHeader text = "Artists" />
+
+	renderBody() {
+		return this.props.artsySearch.active == true ? (
+			<SearchResultsList 
+				searchModel={this.props.artsySearch}
+				navigateTo={"Artist"}
+				/>
+		) : (
+			<View>
 				<ArtistsList 
 					collection={this.props.artistsModel.list} 
 					loading={this.props.artistsModel.loading}/>
 				<PaginationButtons 
 					loadPrev={this.props.artistsModel.loadPrev.bind(this.props.artistsModel)}
 					loadNext={this.props.artistsModel.loadNext.bind(this.props.artistsModel)} />
-			</ScrollView>
+			</View>
+		)
+	}
+
+	render() {
+		return (
+			<ScrollViewScreenContainer>
+				<BasicHeader 
+					text = "Artists"
+					artsySearch = {this.props.artsySearch}
+					searchType = {"artist"} />
+					{this.renderBody()}
+			</ScrollViewScreenContainer>
 		)
 	}
 }
 
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-    flexDirection: 'column',
-    alignContent: 'center',
-    alignItems: 'stretch',
-    justifyContent: 'space-between',
-	}
-})
 
 export default ArtistsScreen;

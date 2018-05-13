@@ -13,6 +13,7 @@ import PaginationButtons from '../components/PaginationButtons'
 import { observer, inject } from 'mobx-react'
 import { List, ListItem, Card, Button, Divider } from 'react-native-elements'
 import imageHref from '../models/ArtsyImage'
+import ScrollViewScreenContainer from '../components/ScrollViewScreenContainer'
 import _ from 'lodash'
 
 
@@ -61,29 +62,16 @@ class ArtworksScreen extends React.Component {
 
 	render() {
 		return (
-			<ScrollView contentContainerStyle={styles.container}>
+			<ScrollViewScreenContainer>
 				<BasicHeader text="Artworks" />
 				{this.renderArtworksList()}
 				<PaginationButtons
 					loadPrev={this.props.artworksModel.loadPrev.bind(this.props.artworksModel)}
 					loadNext={this.props.artworksModel.loadNext.bind(this.props.artworksModel)} />
-			</ScrollView>
+			</ScrollViewScreenContainer>
 		);
-	}
-
-	componentWillUnmount() {
-		
 	}
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-    flexDirection: 'column',
-    alignContent: 'center',
-    alignItems: 'stretch',
-    justifyContent: 'space-between',
-  },
-})
 
 export default ArtworksScreen

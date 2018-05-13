@@ -12,7 +12,9 @@ import PaginationButtons from '../components/PaginationButtons'
 import { observer, inject } from 'mobx-react'
 import { List, ListItem, Card, Button, Divider } from 'react-native-elements'
 import imageHref from '../models/ArtsyImage'
+import ScrollViewScreenContainer from '../components/ScrollViewScreenContainer'
 import _ from 'lodash'
+
 
 @inject("genesModel") 
 @observer
@@ -57,25 +59,16 @@ class GenesScreen extends React.Component {
 
 	render() {
 		return (
-			<ScrollView contentContainerStyle={styles.container}>
+			<ScrollViewScreenContainer>
 				<BasicHeader text = "Genes" />
         {this.renderGenesList()}
         <PaginationButtons 
           loadPrev={this.props.genesModel.loadPrev.bind(this.props.genesModel)}
           loadNext={this.props.genesModel.loadNext.bind(this.props.genesModel)} />
-			</ScrollView>
+			</ScrollViewScreenContainer>
 		)
 	}
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-    flexDirection: 'column',
-    alignContent: 'center',
-    alignItems: 'stretch',
-    justifyContent: 'space-between',
-	}
-})
 
 export default GenesScreen

@@ -6,24 +6,29 @@ import auth from './models/Auth'
 import Datastore from 'react-native-local-mongodb'
 import ArtsyModel from './models/ArtsyModel'
 import ArtsySettings from './constants/ArtsySettings'
+import ArtsySearch from './models/ArtsySearch'
+
 
 const artistsModel = new ArtsyModel({
   collection: 'artists',
-  href: "https://api.artsy.net/api/artists?artworks=true&sort=-trending",
+  href: ArtsySettings.artistsQuery,
   limit: ArtsySettings.queryLimit
 })
 
 const artworksModel = new ArtsyModel({
   collection: 'artworks',
-  href: "https://api.artsy.net/api/artworks",
+  href: ArtsySettings.arworksQuery,
   limit: ArtsySettings.queryLimit
 })
 
 const genesModel = new ArtsyModel({
   collection: 'genes',
-  href: "https://api.artsy.net/api/genes",
+  href: ArtsySettings.genesQuery,
   limit: ArtsySettings.queryLimit
 })
+
+const artsySearch = new ArtsySearch()
+console.log(artsySearch)
 
 const artistsStore = new Datastore({filename: 'artists', autoload: true})
 const artworksStore = new Datastore({filename: 'artworks', autoload: true})
@@ -47,6 +52,7 @@ class App extends React.Component {
         artistsModel = {artistsModel}
         artworksModel = {artworksModel}
         genesModel = {genesModel}
+        artsySearch = {artsySearch}
         artistsStore = {artistsStore}
         artworksStore = {artworksStore}
         genesStore = {genesStore}>

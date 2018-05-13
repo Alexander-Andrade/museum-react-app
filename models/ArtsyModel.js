@@ -27,7 +27,7 @@ class ArtsyModel {
     
     href = this._limitSize(href)
     
-    console.log(href)
+    // console.log(href)
     let response = null
     try{
       response = await axios.get(href, {
@@ -38,7 +38,7 @@ class ArtsyModel {
       })
       
       this.list = _.get(response, `data._embedded.${this.collection}`, [])
-      console.log(this.list.map((el)=> el.slug || el.name))
+      // console.log(this.list.map((el)=> el.slug || el.name))
     }catch(e){
       console.log(e)
     }
@@ -47,6 +47,7 @@ class ArtsyModel {
     return response
   }
 
+  @action
   async loadNext() {
     if (auth.xapp_token != null) {
   
@@ -69,6 +70,7 @@ class ArtsyModel {
     return url.href
   }
 
+  @action
   async loadPrev(){
     if (auth.xapp_token != null) {
       
@@ -81,16 +83,6 @@ class ArtsyModel {
 
     }
   }
-
-
-  // async saveAndLoad(href) {
-  //   if (auth.xapp_token != null) {
-
-  //     this.prev_hrefs.push(this.current_href)
-  //     const response = await this.load(href, limit)
-  //     this.current_href = href
-  //   }
-  // }
 }
 
 export default ArtsyModel

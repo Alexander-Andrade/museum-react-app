@@ -53,7 +53,7 @@ class Artwork extends Component {
 
 
 	renderImage (model) {
-    console.log(model._links.image.href)
+    
     return (
       this.state.imageZoomed == false ?
         ( <TouchableOpacity onPress={() => this.setState({ imageZoomed: true })}> 
