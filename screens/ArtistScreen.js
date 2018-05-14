@@ -18,7 +18,7 @@ import AccordionView from '../components/AccordionView'
 import ArtsyModel from '../models/ArtsyModel'
 import ArtsySettings from '../constants/ArtsySettings'
 
-  
+
 @observer
 class Artist extends Component {
  
@@ -40,9 +40,11 @@ class Artist extends Component {
         limit: ArtsySettings.queryLimit
       })
     }
-    
+    console.log(model._links.artworks.href)
+    console.log(model._links.genes.href)
     this.state.artworksModel.loadNext();
     this.state.genesModel.loadNext();
+    console.log('after warning')
   }
 
   renderHeader () {

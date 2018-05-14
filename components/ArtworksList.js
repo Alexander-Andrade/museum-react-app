@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withNavigation } from 'react-navigation'
 import imageHref from '../models/ArtsyImage'
 import { List, ListItem, Card, Button } from 'react-native-elements'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, Text } from 'react-native'
 import _ from 'lodash'
 
 
@@ -12,7 +12,7 @@ class ArtworkstsList extends Component {
   render() {
     const { collection, loading } = this.props
 
-    if (!_.isEmpty( collection) && !loading) {
+    if (!_.isEmpty(collection) && !loading) {
       return (
         <List containerStyle={{marginTop: 0}}>
           {
@@ -27,7 +27,10 @@ class ArtworkstsList extends Component {
         </List>
       )
 
-    } else {
+    } else if (_.isEmpty(collection)) {
+      return <Text style={{fontSize: 22, textAlign: 'center'}}>There is no artworks</Text>
+    } 
+    else {
       return <ActivityIndicator size="large" />
     }
   }

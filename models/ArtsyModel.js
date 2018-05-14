@@ -13,13 +13,12 @@ class ArtsyModel {
   @observable prev_hrefs = []
   @observable loading = false
 
+  
   constructor(params){
     this.next_href = params.href
     this.limit = _.isEmpty(params.limit) ?  ArtsySettings.queryLimit : params.limit
     this.collection = params.collection 
   }
-
-
 
   async load(href) {
     this.loading = true
@@ -40,7 +39,7 @@ class ArtsyModel {
       this.list = _.get(response, `data._embedded.${this.collection}`, [])
       // console.log(this.list.map((el)=> el.slug || el.name))
     }catch(e){
-      console.log(e)
+      // console.log(e)
     }
     this.loading = false
     
@@ -58,7 +57,7 @@ class ArtsyModel {
       }
       
       this.current_href = this.next_href 
-      this.next_href = response.data._links.next.href
+      this.next_href = _.get(response, 'data._links.next.href')
     }
   }
 
