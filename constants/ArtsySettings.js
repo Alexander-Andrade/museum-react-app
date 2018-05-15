@@ -3,6 +3,6 @@ export default {
   arworksQuery: "https://api.artsy.net/api/artworks",
   genesQuery: "https://api.artsy.net/api/genes",
   searchPath: "https://api.artsy.net/api/search",
-  queryLimit: 2,
+  queryLimit: 10,
   searchLimit: 10
 }

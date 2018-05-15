@@ -14,10 +14,12 @@ import { observer, inject } from 'mobx-react'
 import { List, ListItem, Card, Button, Divider } from 'react-native-elements'
 import imageHref from '../models/ArtsyImage'
 import ScrollViewScreenContainer from '../components/ScrollViewScreenContainer'
+import SearchResultsList from '../components/SearchResultsList'
 import _ from 'lodash'
 
 
-@inject("artworksModel") 
+@inject("artworksModel")
+@inject("artsySearch")  
 @observer
 class ArtworksScreen extends React.Component {
 	
@@ -36,7 +38,7 @@ class ArtworksScreen extends React.Component {
 
 		if (!_.isEmpty(artworksModel.list) && artworksModel.list.length > 0) {
 			return (
-				<ScrollView style={styles.artworksList}>
+				<ScrollView>
 				{
 					artworksModel.list.map((artwork) => {
 						return (
@@ -60,14 +62,31 @@ class ArtworksScreen extends React.Component {
 		}
 	}
 
-	render() {
-		return (
-			<ScrollViewScreenContainer>
-				<BasicHeader text="Artworks" />
+	renderBody() {
+		return this.props.artsySearch.active == true ? (
+			<SearchResultsList 
+				searchModel={this.props.artsySearch}
+				navigateTo={"Artwork"}
+				/>
+		) : (
+			<View>
 				{this.renderArtworksList()}
 				<PaginationButtons
 					loadPrev={this.props.artworksModel.loadPrev.bind(this.props.artworksModel)}
 					loadNext={this.props.artworksModel.loadNext.bind(this.props.artworksModel)} />
+			</View>
+		)
+	}
+
+	render() {
+		return (
+			<ScrollViewScreenContainer>
+				<BasicHeader 
+					text="Artworks"
+					artsySearch = {this.props.artsySearch}
+					searchType = {"artwork"} 
+				/>
+				{this.renderBody()}
 			</ScrollViewScreenContainer>
 		);
 	}

@@ -13,10 +13,12 @@ import { observer, inject } from 'mobx-react'
 import { List, ListItem, Card, Button, Divider } from 'react-native-elements'
 import imageHref from '../models/ArtsyImage'
 import ScrollViewScreenContainer from '../components/ScrollViewScreenContainer'
+import SearchResultsList from '../components/SearchResultsList'
 import _ from 'lodash'
 
 
-@inject("genesModel") 
+@inject("genesModel")
+@inject("artsySearch") 
 @observer
 class GenesScreen extends React.Component {
 	
@@ -57,14 +59,31 @@ class GenesScreen extends React.Component {
 		}
 	}
 
-	render() {
-		return (
-			<ScrollViewScreenContainer>
-				<BasicHeader text = "Genes" />
-        {this.renderGenesList()}
+	renderBody() {
+		return this.props.artsySearch.active == true ? (
+			<SearchResultsList 
+				searchModel={this.props.artsySearch}
+				navigateTo={"Gene"}
+				/>
+		) : (
+			<View>
+				{this.renderGenesList()}
         <PaginationButtons 
           loadPrev={this.props.genesModel.loadPrev.bind(this.props.genesModel)}
           loadNext={this.props.genesModel.loadNext.bind(this.props.genesModel)} />
+			</View>
+		)
+	}
+
+	render() {
+		return (
+			<ScrollViewScreenContainer>
+				<BasicHeader 
+					text="Genes"
+					artsySearch = {this.props.artsySearch}
+					searchType = {"artwork"} 
+				/>
+        {this.renderBody()}
 			</ScrollViewScreenContainer>
 		)
 	}

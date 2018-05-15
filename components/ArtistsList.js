@@ -26,6 +26,7 @@ class ArtistsList extends Component {
         </List>
       )
       
+      
     }else if (_.isEmpty(collection)) {
       return <Text style={{fontSize: 22, textAlign: 'center'}}>There is no artists</Text>
     }  else {
