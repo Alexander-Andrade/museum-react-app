@@ -1,8 +1,8 @@
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import ArtworksScreen from '../screens/ArtworksScreen'
 import ArtworkNavigator from './ArtworkNavigator'
 
-export default StackNavigator({
+export default createStackNavigator({
     Artworks: {
       screen: ArtworksScreen
     },

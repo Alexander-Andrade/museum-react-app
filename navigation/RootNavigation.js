@@ -1,11 +1,11 @@
 import React from 'react'
-import { DrawerNavigator } from 'react-navigation'
+import { createDrawerNavigator } from 'react-navigation'
 import ArtistsNavigator from './ArtistsNavigator'
 import ArtworksNavigator from './ArtworksNavigator'
 import GenesNavigator from './GenesNavigator'
 
 
-export default DrawerNavigator({
+export default createDrawerNavigator({
     Artists: {
       screen: ArtistsNavigator
     },

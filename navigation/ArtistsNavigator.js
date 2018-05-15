@@ -1,9 +1,9 @@
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import ArtistScreen from '../screens/ArtistScreen'
 import ArtistsScreen from '../screens/ArtistsScreen'
 import ArtistNavigator from './ArtistNavigator'
 
-export default StackNavigator({
+export default createStackNavigator({
     Artists: {
       screen: ArtistsScreen
     },

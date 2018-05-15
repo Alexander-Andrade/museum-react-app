@@ -1,8 +1,8 @@
-import { TabNavigator } from 'react-navigation'
+import { createTabNavigator } from 'react-navigation'
 import ArtistScreen from '../screens/ArtistScreen'
 import ArtworkScreen from '../screens/ArtworkScreen'
 
-export default TabNavigator({
+export default createTabNavigator({
     Artists: {
       screen: FavoriteArtistsScreen
     },

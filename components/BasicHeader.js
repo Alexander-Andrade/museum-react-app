@@ -55,7 +55,7 @@ class BasicHeader extends Component {
 
     return this.props.artsySearch.active == false ?
       (<Header
-        leftComponent={{ icon: 'menu', color: '#fff', onPress: () => this.props.navigation.navigate('DrawerOpen') }}
+        leftComponent={{ icon: 'menu', color: '#fff', onPress: () => this.props.navigation.openDrawer() }}
         centerComponent={{ text: this.props.text, style: { color: '#fff' } }}
         rightComponent={{ icon: 'search', color: '#fff', onPress: () => this.enterSearchMode()  }}
       />)
