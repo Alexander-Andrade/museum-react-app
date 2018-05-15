@@ -66,12 +66,12 @@ class GenesScreen extends React.Component {
 				navigateTo={"Gene"}
 				/>
 		) : (
-			<View>
+			<ScrollView>
 				{this.renderGenesList()}
         <PaginationButtons 
           loadPrev={this.props.genesModel.loadPrev.bind(this.props.genesModel)}
           loadNext={this.props.genesModel.loadNext.bind(this.props.genesModel)} />
-			</View>
+			</ScrollView>
 		)
 	}
 

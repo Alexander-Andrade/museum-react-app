@@ -69,12 +69,12 @@ class ArtworksScreen extends React.Component {
 				navigateTo={"Artwork"}
 				/>
 		) : (
-			<View>
+			<ScrollView>
 				{this.renderArtworksList()}
 				<PaginationButtons
 					loadPrev={this.props.artworksModel.loadPrev.bind(this.props.artworksModel)}
 					loadNext={this.props.artworksModel.loadNext.bind(this.props.artworksModel)} />
-			</View>
+			</ScrollView>
 		)
 	}
 

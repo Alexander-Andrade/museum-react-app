@@ -40,14 +40,14 @@ class ArtistsScreen extends React.Component {
 				navigateTo={"Artist"}
 				/>
 		) : (
-			<View>
+			<ScrollView>
 				<ArtistsList 
 					collection={this.props.artistsModel.list} 
 					loading={this.props.artistsModel.loading}/>
 				<PaginationButtons 
 					loadPrev={this.props.artistsModel.loadPrev.bind(this.props.artistsModel)}
 					loadNext={this.props.artistsModel.loadNext.bind(this.props.artistsModel)} />
-			</View>
+			</ScrollView>
 		)
 	}
 
