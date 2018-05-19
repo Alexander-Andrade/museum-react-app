@@ -28,7 +28,6 @@ const genesModel = new ArtsyModel({
 })
 
 const artsySearch = new ArtsySearch()
-console.log(artsySearch)
 
 const artistsStore = new Datastore({filename: 'artists', autoload: true})
 const artworksStore = new Datastore({filename: 'artworks', autoload: true})

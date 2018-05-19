@@ -17,13 +17,14 @@ import ScrollViewScreenContainer from '../components/ScrollViewScreenContainer'
 import SearchResultsList from '../components/SearchResultsList'
 import _ from 'lodash'
 
+
 @inject("artistsModel")
 @inject("artsySearch")  
 @observer
 class ArtistsScreen extends React.Component {
 	
 	static navigationOptions = {
-		title: 'Artists'
+		title: 'Artists',
 	}
 	
 

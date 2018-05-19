@@ -1,11 +1,11 @@
 import { createStackNavigator } from 'react-navigation'
-import ArtistScreen from '../screens/ArtistScreen'
-import ArtistsScreen from '../screens/ArtistsScreen'
+// import ArtistsScreen from '../screens/ArtistsScreen'
 import ArtistNavigator from './ArtistNavigator'
+import ArtistsTabNavigator from './ArtistsTabNavigator'
 
 export default createStackNavigator({
     Artists: {
-      screen: ArtistsScreen
+      screen: ArtistsTabNavigator
     },
     Artist: {
       screen: ArtistNavigator

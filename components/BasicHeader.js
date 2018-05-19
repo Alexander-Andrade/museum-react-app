@@ -4,7 +4,7 @@ import { Header, SearchBar } from 'react-native-elements'
 import { TextInput } from 'react-native'
 import Layout from '../constants/Layout'
 import { observer, inject } from 'mobx-react'
-
+import Color from '../constants/Colors'
 
 @observer
 class BasicHeader extends Component {
@@ -55,16 +55,39 @@ class BasicHeader extends Component {
 
     return this.props.artsySearch.active == false ?
       (<Header
-        leftComponent={{ icon: 'menu', color: '#fff', onPress: () => this.props.navigation.openDrawer() }}
-        centerComponent={{ text: this.props.text, style: { color: '#fff' } }}
-        rightComponent={{ icon: 'search', color: '#fff', onPress: () => this.enterSearchMode()  }}
+        leftComponent={{ 
+          icon: 'menu', 
+          color: '#fff', 
+          onPress: () => this.props.navigation.openDrawer(),
+          underlayColor: Color.tintColor 
+        }}
+        centerComponent={{ 
+          text: this.props.text, 
+          style: { color: '#fff' } 
+        }}
+        rightComponent={{ 
+          icon: 'search', 
+          color: '#fff', 
+          onPress: () => this.enterSearchMode(),
+          underlayColor: Color.tintColor   
+        }}
       />)
       :
       (
         <Header
-          leftComponent={{ icon: 'arrow-back', color: '#fff', onPress: () => this.leaveSearchMode() }}
+          leftComponent={{ 
+            icon: 'arrow-back', 
+            color: '#fff', 
+            onPress: () => this.leaveSearchMode(),
+            underlayColor: Color.tintColor  
+          }}
           centerComponent={ searchBar }
-          rightComponent={{ icon: 'close', color: '#fff', onPress: () => this.clearSearchInput() }}
+          rightComponent={{ 
+            icon: 'close', 
+            color: '#fff', 
+            onPress: () => this.clearSearchInput(),
+            underlayColor: Color.tintColor  
+          }}
       />
       )
   }

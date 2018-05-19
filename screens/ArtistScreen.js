@@ -44,7 +44,6 @@ class Artist extends Component {
     console.log(model._links.genes.href)
     this.state.artworksModel.loadNext();
     this.state.genesModel.loadNext();
-    console.log('after warning')
   }
 
   renderHeader () {

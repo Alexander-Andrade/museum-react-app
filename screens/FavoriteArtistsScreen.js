@@ -1,110 +1,70 @@
-import React, { Component } from 'react' 
+import React from 'react'
 import {
 	Platform,
 	ScrollView,
 	StyleSheet,
+	Text,
 	TouchableOpacity,
 	View,
-	Button
+  Button,
+  ActivityIndicator
 } from 'react-native'
-import { Text } from 'react-native-elements'
-import ArtsyImageView from '../components/ArtsyImageView'
-import Paragraph from '../components/Paragraph'
-import ArtworksList from '../components/ArtworksList'
-import GenesList from '../components/GenesList'
-import Category from '../components/Category'
+import BasicHeader from '../components/BasicHeader'
+import PaginationButtons from '../components/PaginationButtons'
 import { observer, inject } from 'mobx-react'
-import AccordionView from '../components/AccordionView'
-import ArtsySettings from '../constants/ArtsySettings'
+import ArtistsList from '../components/ArtistsList'
+import ScrollViewScreenContainer from '../components/ScrollViewScreenContainer'
+import SearchResultsList from '../components/SearchResultsList'
+import _ from 'lodash'
 
-@inject("artworksModel")
-@inject("genesModel")  
+
+@inject("artistsModel")
+@inject("artsySearch")  
 @observer
-class Artist extends Component {
- 
-  constructor(props) {
-    super(props)
+class ArtistsScreen extends React.Component {
+	
+	static navigationOptions = {
+    title: 'Artists',
+	}
+	
 
-    const { model } = this.props.navigation.state.params
-    this.props.artworksModel.saveAndLoad(model._links.artworks.href, ArtsySettings.queryLimit)
-    this.props.genesModel.saveAndLoad(model._links.genes.href, ArtsySettings.queryLimit)
-    console.log('artist constr')
-  }
+	constructor(props) {
+		super(props);
+		
+	}
+	
 
-  renderHeader () {
-    const { model } = this.props.navigation.state.params
-    
-    return (
-      <View>
-        <Text h4>{model.name}</Text>
-        <Text>
-          {model.birthday}
-          {
-            !!model.deathday &&
-            <Text>- {model.deathday}</Text>
-          }
-        </Text>
-      </View>
-      )
-  }
-
-  renderInfo() {
-    const { model } = this.props.navigation.state.params
-    const sections = [
-    {
-      title: 'Artworks',
-      content: <ArtworksList 
-                  collection={this.props.artworksModel.list}  
-                  loading={this.props.artworksModel.loading} />
-    
-    },
-    {
-      title: 'Genes',
-      content: <GenesList 
-                  collection={this.props.genesModel.list} 
-                  loading={this.props.genesModel.loading}/>
-    }]
-    
-    return (
-      <View>
-        {
-          !!model.biography && 
-          <Text><Paragraph>Biography: </Paragraph>{model.biography}</Text>
-        }
-        <Text style={{marginBottom: 20}}><Paragraph>Hometown: </Paragraph>{model.hometown}</Text>
-        <AccordionView sections={sections} />
-
-      </View>
-    )
-  }
-
-
-  render() {
-    const { model } = this.props.navigation.state.params
-
-    return (
-      <ScrollView style={styles.artist}>
-        {this.renderHeader()}
-        <ArtsyImageView imhref={model._links.image.href} size={'large'} />
-        {this.renderInfo()}
-      </ScrollView>
-    )
-  }
-
-	componentWillUnmount () {
-    this.props.artworksModel.loadPrev()
-    this.props.genesModel.loadPrev()
-    console.log('artist unmount')
+	renderBody() {
+		return this.props.artsySearch.active == true ? (
+			<SearchResultsList 
+				searchModel={this.props.artsySearch}
+				navigateTo={"Artist"}
+				/>
+		) : (
+			<ScrollView>
+				<ArtistsList 
+					collection={this.props.artistsModel.list} 
+					loading={this.props.artistsModel.loading}/>
+				<PaginationButtons 
+					loadPrev={this.props.artistsModel.loadPrev.bind(this.props.artistsModel)}
+					loadNext={this.props.artistsModel.loadNext.bind(this.props.artistsModel)} />
+			</ScrollView>
+		)
 	}
 
+	render() {
+		return (
+			<ScrollViewScreenContainer>
+				<BasicHeader 
+					text = "Artists"
+					artsySearch = {this.props.artsySearch}
+					searchType = {"artist"} />
+					{this.renderBody()}
+			</ScrollViewScreenContainer>
+		)
+	}
 }
 
 
-const styles = StyleSheet.create({
-	artist: {
-    flex: 1,
-    marginTop: 20
-  }
-})
 
-export default Artist
+export default ArtistsScreen;
