@@ -20,7 +20,6 @@ export default createBottomTabNavigator({
       }
     }
   },
-
   {
     initialRouteName: 'Artists',
     headerMode : 'none',
@@ -33,9 +32,10 @@ export default createBottomTabNavigator({
         backgroundColor: Colors.tintColor,
         borderTopWidth: 1,
         borderTopColor: 'white',
-        alignItems: 'center',
-    justifyContent: 'center',
       },
+      tabStyle: {
+        paddingBottom: 10
+      }
     }
   }
 )
