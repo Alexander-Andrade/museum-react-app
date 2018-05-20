@@ -1,7 +1,6 @@
 import {observable, action} from 'mobx'
 import Datastore from 'react-native-local-mongodb'
 import ArtsySettings from '../constants/ArtsySettings'
-import { Icon } from 'react-native-elements'
 import _ from 'lodash'
 
 
@@ -26,6 +25,15 @@ class FavoriteModel {
   insert(doc){
     this.store.insert(doc, (err, newDoc) => console.log(err))
     
+    this.store.find({}, (err, docs) => {
+      this.list = docs
+    })
+  }
+
+  @action
+  remove(params) {
+    this.store.remove(params)
+
     this.store.find({}, (err, docs) => {
       this.list = docs
     })

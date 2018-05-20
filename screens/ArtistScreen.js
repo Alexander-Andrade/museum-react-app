@@ -99,7 +99,7 @@ class Artist extends Component {
           !!model.biography && 
           <Text><Paragraph>Biography: </Paragraph>{model.biography}</Text>
         }
-        
+
         <View style={{marginBottom: 20}}></View>
         <AccordionView sections={sections} />
 
@@ -107,22 +107,43 @@ class Artist extends Component {
     )
   }
 
+  renderFavoriteButton(){
+    const { model, isFavorite } = this.props.navigation.state.params
+
+    return (
+      <View>
+        {
+          isFavorite == false ?
+          (
+            <Button
+              large
+              icon={{ name:'favorite' }}
+              title = 'Add to Favorite'
+              buttonStyle={styles.favoriteButton}
+              onPress={()=> this.props.favoriteArtists.insert(model) } />
+          )
+          :
+          (
+            <Button
+              large
+              title = 'Remove from Favorite'
+              buttonStyle={styles.favoriteButton}
+              onPress={()=> this.props.favoriteArtists.remove({ _id: model._id }) } />
+          )
+          }
+      </View>
+      )
+  }
+
   render() {
     const { model } = this.props.navigation.state.params
-
-
 
     return (
       <ScrollView style={styles.artist}>
         {this.renderHeader()}
         <ArtsyImageView imhref={model._links.image.href} size={'large'} />
         {this.renderInfo()}
-        <Button
-          large
-          icon={{ name:'favorite' }}
-          title='Add to Favorite'
-          buttonStyle={styles.favoriteButton}
-          onPress={()=> this.props.favoriteArtists.insert(model) } />
+        {this.renderFavoriteButton()}
       </ScrollView>
     )
   }

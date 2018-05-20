@@ -9,7 +9,7 @@ import _ from 'lodash'
 class ArtistsList extends Component {
 
   render() {
-    const { collection, loading } = this.props
+    const { collection, loading, isFavorite } = this.props
 
     if (!_.isEmpty(collection) && !loading) {
       return (
@@ -20,7 +20,7 @@ class ArtistsList extends Component {
                 avatar={{ uri: imageHref(artist._links.image.href, 'four_thirds') }}
                 key={artist.id}
                 title={artist.name}
-                onPress={() => this.props.navigation.navigate("Artist", { model: artist })} />
+                onPress={() => this.props.navigation.navigate("Artist", { model: artist, isFavorite: isFavorite })} />
             })
           }
         </List>

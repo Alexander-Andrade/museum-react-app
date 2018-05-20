@@ -44,7 +44,8 @@ class ArtistsScreen extends React.Component {
       <ScrollView>
         <ArtistsList
           collection={this.props.artistsModel.list}
-          loading={this.props.artistsModel.loading}/>
+					loading={this.props.artistsModel.loading}
+					isFavorite={false} />
         <PaginationButtons
           loadPrev={this.props.artistsModel.loadPrev.bind(this.props.artistsModel)}
           loadNext={this.props.artistsModel.loadNext.bind(this.props.artistsModel)} />
