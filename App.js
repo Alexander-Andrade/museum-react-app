@@ -31,7 +31,8 @@ const artsySearch = new ArtsySearch()
 
 
 const favoriteArtists = new FavoriteModel({collection: 'artists', indexField: 'name'})
-
+const favoriteArtworks = new FavoriteModel({collection: 'artworks', indexField: 'title'})
+const favoriteGenes = new FavoriteModel({collection: 'genes', indexField: 'name'})
 
 reaction( () => auth.xapp_token, 
           (xapp_token, reaction) => { 
@@ -51,7 +52,9 @@ class App extends React.Component {
         artworksModel = {artworksModel}
         genesModel = {genesModel}
         artsySearch = {artsySearch}
-        favoriteArtists = {favoriteArtists}>
+        favoriteArtists = {favoriteArtists}
+        favoriteArtworks = {favoriteArtworks}
+        favoriteGenes = {favoriteGenes} >
         <RootNavigation />
       </Provider>
     );

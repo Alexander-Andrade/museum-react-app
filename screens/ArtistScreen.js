@@ -16,7 +16,7 @@ import { observer, inject } from 'mobx-react'
 import AccordionView from '../components/AccordionView'
 import ArtsyModel from '../models/ArtsyModel'
 import ArtsySettings from '../constants/ArtsySettings'
-
+import FavoriteButton from '../components/FavoriteButton'
 
 @inject("favoriteArtists")  
 class Artist extends Component {
@@ -107,43 +107,19 @@ class Artist extends Component {
     )
   }
 
-  renderFavoriteButton(){
-    const { model, isFavorite } = this.props.navigation.state.params
-
-    return (
-      <View>
-        {
-          isFavorite == false ?
-          (
-            <Button
-              large
-              icon={{ name:'favorite' }}
-              title = 'Add to Favorite'
-              buttonStyle={styles.favoriteButton}
-              onPress={()=> this.props.favoriteArtists.insert(model) } />
-          )
-          :
-          (
-            <Button
-              large
-              title = 'Remove from Favorite'
-              buttonStyle={styles.favoriteButton}
-              onPress={()=> this.props.favoriteArtists.remove({ _id: model._id }) } />
-          )
-          }
-      </View>
-      )
-  }
-
   render() {
-    const { model } = this.props.navigation.state.params
+    const { model, isFavorite } = this.props.navigation.state.params
 
     return (
       <ScrollView style={styles.artist}>
         {this.renderHeader()}
         <ArtsyImageView imhref={model._links.image.href} size={'large'} />
         {this.renderInfo()}
-        {this.renderFavoriteButton()}
+        <FavoriteButton 
+          isFavorite={isFavorite}
+          onNotFavorite={() =>  this.props.favoriteArtists.insert(model)}
+          onFavorite={() => this.props.favoriteArtists.remove({ _id: model._id })}
+        />
       </ScrollView>
     )
   }

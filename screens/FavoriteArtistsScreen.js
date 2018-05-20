@@ -10,7 +10,6 @@ import {
   ActivityIndicator
 } from 'react-native'
 import BasicHeader from '../components/BasicHeader'
-import PaginationButtons from '../components/PaginationButtons'
 import { observer, inject } from 'mobx-react'
 import ArtistsList from '../components/ArtistsList'
 import ScrollViewScreenContainer from '../components/ScrollViewScreenContainer'
