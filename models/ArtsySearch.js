@@ -17,7 +17,7 @@ class ArtsySearchModel {
     if(!_.isEmpty(text)) {
       const token = await auth.token()
       const serachQueryStr = this.searchQuery(text, type)
-     
+      
       response = await axios.get(serachQueryStr, {
         headers: {
           "X-XAPP-Token": token

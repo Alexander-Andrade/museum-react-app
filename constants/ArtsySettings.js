@@ -4,5 +4,5 @@ export default {
   genesQuery: "https://api.artsy.net/api/genes",
   searchPath: "https://api.artsy.net/api/search",
   queryLimit: 60,
-  searchLimit: 30
+  searchLimit: 10
 }

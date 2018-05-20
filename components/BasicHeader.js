@@ -45,8 +45,10 @@ class BasicHeader extends Component {
             ref={input => { this.searchBar = input }} 
             style={{ 
               width: Layout.window.width - 80,
-              color: 'white' 
+              color: 'white', 
             }}
+            selectionColor="#CCCCCC"
+            underlineColorAndroid= '#CCCCCC'
             placeholder="Type Here..."
             autoFocus={true}
             onChangeText={ (text) => this.onSearch(text) }
