@@ -96,7 +96,18 @@ class Artwork extends Component {
         <Text><Paragraph>Category: </Paragraph>{model.category}</Text>
         <Text><Paragraph>Medium: </Paragraph>{model.medium}</Text>
         <Text><Paragraph>Collecting Institution: </Paragraph>{model.collecting_institution}</Text>
-        <Text style={{marginBottom: 20}}><Paragraph>Dimensions: </Paragraph>{model.dimensions.cm.text}</Text>
+        <Text><Paragraph>Dimensions: </Paragraph>{model.dimensions.cm.text}</Text>
+        {
+          !!model.literature &&
+          <Text><Paragraph>Literature: </Paragraph>{model.literature}</Text>
+        }
+        {
+          !!model.exhibition_history &&
+          <Text><Paragraph>Exhibition History: </Paragraph>{model.exhibition_history}</Text>
+        }
+
+        <View style={{marginBottom: 20}}></View>
+
         <AccordionView sections={sections} />
       </ScrollView>
     )

@@ -84,10 +84,23 @@ class Artist extends Component {
     return (
       <View>
         {
+          !!model.hometown && 
+          <Text><Paragraph>Hometown: </Paragraph>{model.hometown}</Text>
+        }
+        {
+          !!model.location &&
+          <Text><Paragraph>Location: </Paragraph>{model.location}</Text>
+        }
+        {
+          !!model.nationality &&
+          <Text><Paragraph>Nationality: </Paragraph>{model.nationality}</Text>
+        }
+        {
           !!model.biography && 
           <Text><Paragraph>Biography: </Paragraph>{model.biography}</Text>
         }
-        <Text style={{marginBottom: 20}}><Paragraph>Hometown: </Paragraph>{model.hometown}</Text>
+        
+        <View style={{marginBottom: 20}}></View>
         <AccordionView sections={sections} />
 
       </View>
