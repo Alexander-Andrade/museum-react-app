@@ -3,9 +3,9 @@ import RootNavigation from './navigation/RootNavigation'
 import { reaction } from 'mobx'
 import { Provider } from 'mobx-react'
 import auth from './models/Auth'
-import Datastore from 'react-native-local-mongodb'
 import ArtsyModel from './models/ArtsyModel'
 import ArtsySettings from './constants/ArtsySettings'
+import FavoriteModel from './models/FavoriteModel'
 import ArtsySearch from './models/ArtsySearch'
 
 
@@ -29,9 +29,8 @@ const genesModel = new ArtsyModel({
 
 const artsySearch = new ArtsySearch()
 
-const artistsStore = new Datastore({filename: 'artists', autoload: true})
-const artworksStore = new Datastore({filename: 'artworks', autoload: true})
-const genesStore = new Datastore({filename: 'genes', autoload: true})
+
+const favoriteArtists = new FavoriteModel({collection: 'artists', indexField: 'name'})
 
 
 reaction( () => auth.xapp_token, 
@@ -52,9 +51,7 @@ class App extends React.Component {
         artworksModel = {artworksModel}
         genesModel = {genesModel}
         artsySearch = {artsySearch}
-        artistsStore = {artistsStore}
-        artworksStore = {artworksStore}
-        genesStore = {genesStore}>
+        favoriteArtists = {favoriteArtists}>
         <RootNavigation />
       </Provider>
     );

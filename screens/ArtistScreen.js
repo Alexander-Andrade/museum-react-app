@@ -4,10 +4,9 @@ import {
 	ScrollView,
 	StyleSheet,
 	TouchableOpacity,
-	View,
-	Button
+	View
 } from 'react-native'
-import { Text } from 'react-native-elements'
+import { Text, Button, Icon } from 'react-native-elements'
 import ArtsyImageView from '../components/ArtsyImageView'
 import Paragraph from '../components/Paragraph'
 import ArtworksList from '../components/ArtworksList'
@@ -19,7 +18,7 @@ import ArtsyModel from '../models/ArtsyModel'
 import ArtsySettings from '../constants/ArtsySettings'
 
 
-@observer
+@inject("favoriteArtists")  
 class Artist extends Component {
  
   constructor(props) {
@@ -40,8 +39,7 @@ class Artist extends Component {
         limit: ArtsySettings.queryLimit
       })
     }
-    console.log(model._links.artworks.href)
-    console.log(model._links.genes.href)
+    
     this.state.artworksModel.loadNext();
     this.state.genesModel.loadNext();
   }
@@ -96,24 +94,33 @@ class Artist extends Component {
     )
   }
 
-
   render() {
     const { model } = this.props.navigation.state.params
+
+
 
     return (
       <ScrollView style={styles.artist}>
         {this.renderHeader()}
         <ArtsyImageView imhref={model._links.image.href} size={'large'} />
         {this.renderInfo()}
+        <Button
+          large
+          icon={{ name:'favorite' }}
+          title='Add to Favorite'
+          buttonStyle={styles.favoriteButton}
+          onPress={()=> this.props.favoriteArtists.insert(model) } />
       </ScrollView>
     )
   }
 }
 
-
 const styles = StyleSheet.create({
 	artist: {
     flex: 1,
+    marginTop: 20
+  },
+  favoriteButton: {
     marginTop: 20
   }
 })

@@ -18,19 +18,19 @@ import SearchResultsList from '../components/SearchResultsList'
 import _ from 'lodash'
 
 
-@inject("artistsModel")
+@inject("favoriteArtists")
 @inject("artsySearch")  
 @observer
-class ArtistsScreen extends React.Component {
+class FavoriteArtistsScreen extends React.Component {
 	
 	static navigationOptions = {
-    title: 'Artists',
+		title: 'Artists',
 	}
 	
 
 	constructor(props) {
 		super(props);
-		
+
 	}
 	
 
@@ -43,11 +43,8 @@ class ArtistsScreen extends React.Component {
 		) : (
 			<ScrollView>
 				<ArtistsList 
-					collection={this.props.artistsModel.list} 
-					loading={this.props.artistsModel.loading}/>
-				<PaginationButtons 
-					loadPrev={this.props.artistsModel.loadPrev.bind(this.props.artistsModel)}
-					loadNext={this.props.artistsModel.loadNext.bind(this.props.artistsModel)} />
+					collection={this.props.favoriteArtists.list} 
+					loading={this.props.favoriteArtists.loading}/>
 			</ScrollView>
 		)
 	}
@@ -67,4 +64,4 @@ class ArtistsScreen extends React.Component {
 
 
 
-export default ArtistsScreen;
+export default FavoriteArtistsScreen;
