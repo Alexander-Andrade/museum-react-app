@@ -1,10 +1,11 @@
 import { createStackNavigator } from 'react-navigation'
 import GeneNavigator from './GeneNavigator'
-import GenesScreen from '../screens/GenesScreen'
+import GenesTabNavigator from './GenesTabNavigator'
+
 
 export default createStackNavigator({
     Genes: {
-      screen: GenesScreen
+      screen: GenesTabNavigator
     },
     Gene: {
       screen: GeneNavigator

@@ -19,6 +19,7 @@ import ArtsySettings from '../constants/ArtsySettings'
 import FavoriteButton from '../components/FavoriteButton'
 
 @inject("favoriteArtists")  
+@observer
 class Artist extends Component {
  
   constructor(props) {

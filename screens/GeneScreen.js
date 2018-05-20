@@ -18,8 +18,9 @@ import { observer, inject } from 'mobx-react'
 import AccordionView from '../components/AccordionView'
 import ArtsyModel from '../models/ArtsyModel'
 import ArtsySettings from '../constants/ArtsySettings'
+import FavoriteButton from '../components/FavoriteButton'
 
-
+@inject("favoriteGenes") 
 @observer
 class Gene extends Component {
 
@@ -46,7 +47,7 @@ class Gene extends Component {
   }
 
   render() {
-    const { model } = this.props.navigation.state.params
+    const { model, isFavorite } = this.props.navigation.state.params
 
     const sections = [
       {
@@ -69,6 +70,12 @@ class Gene extends Component {
         <ArtsyImageView imhref={model._links.image.href} size={'tall'} />
         <Text style={{marginBottom: 20}}><Paragraph>Description: </Paragraph>{model.description}</Text>
         <AccordionView sections={sections} />
+
+        <FavoriteButton 
+          isFavorite={isFavorite}
+          onNotFavorite={() =>  this.props.favoriteGenes.insert(model)}
+          onFavorite={() => this.props.favoriteGenes.remove({ _id: model._id })}
+        />
       </ScrollView>
     )
   }
