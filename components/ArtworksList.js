@@ -10,7 +10,7 @@ class ArtworkstsList extends Component {
 
   
   render() {
-    const { collection, loading } = this.props
+    const { collection, loading, isFavorite } = this.props
 
     if (!_.isEmpty(collection) && !loading) {
       return (
@@ -21,7 +21,7 @@ class ArtworkstsList extends Component {
                 avatar={{ uri: imageHref(artwork._links.image.href, 'small') }}
                 key={artwork.id}
                 title={artwork.title}
-                onPress={() => this.props.navigation.navigate("Artwork", { model: artwork })} />
+                onPress={() => this.props.navigation.navigate("Artwork", { model: artwork, isFavorite: isFavorite })} />
             })
           }
         </List>

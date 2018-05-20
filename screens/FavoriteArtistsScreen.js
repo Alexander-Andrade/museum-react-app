@@ -41,7 +41,7 @@ class FavoriteArtistsScreen extends React.Component {
 				/>
 		) : (
 			<ScrollView>
-				<ArtistsList 
+        <ArtistsList 
 					collection={this.props.favoriteArtists.list} 
 					loading={this.props.favoriteArtists.loading}
           isFavorite={true} />

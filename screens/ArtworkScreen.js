@@ -20,8 +20,10 @@ import artsyImageHref from '../models/ArtsyImage'
 import AccordionView from '../components/AccordionView'
 import ArtsyModel from '../models/ArtsyModel'
 import ArtsySettings from '../constants/ArtsySettings'
+import FavoriteButton from '../components/FavoriteButton'
 
 
+@inject("favoriteArtworks") 
 @observer
 class Artwork extends Component {
 
@@ -70,13 +72,42 @@ class Artwork extends Component {
      
 	}
 
+  renderFavoriteButton(){
+    const { model, isFavorite } = this.props.navigation.state.params
+
+    return (
+      <View>
+        {
+          isFavorite == false ?
+          (
+            <Button
+              large
+              icon={{ name:'favorite' }}
+              title = 'Add to Favorite'
+              buttonStyle={styles.favoriteButton}
+              onPress={()=> this.props.favoriteArtists.insert(model) } />
+          )
+          :
+          (
+            <Button
+              large
+              title = 'Remove from Favorite'
+              buttonStyle={styles.favoriteButton}
+              onPress={()=> this.props.favoriteArtists.remove({ _id: model._id }) } />
+          )
+          }
+      </View>
+      )
+  }
+
   render() {
-    const { model } = this.props.navigation.state.params
+    const { model, isFavorite } = this.props.navigation.state.params
 
     const sections = [
       {
         title: 'Artists',
-        content: <ArtistsList 
+        content: <ArtistsList
+                  isFavorite={false} 
                   collection={this.state.artistsModel.list}  
                   loading={this.state.artistsModel.loading} />
       
@@ -84,6 +115,7 @@ class Artwork extends Component {
       {
         title: 'Genes',
         content: <GenesList 
+                  isFavorite={false} 
                   collection={this.state.genesModel.list} 
                   loading={this.state.genesModel.loading}/>
       }]
@@ -109,6 +141,12 @@ class Artwork extends Component {
         <View style={{marginBottom: 20}}></View>
 
         <AccordionView sections={sections} />
+
+        <FavoriteButton 
+          isFavorite={isFavorite}
+          onNotFavorite={() =>  this.props.favoriteArtworks.insert(model)}
+          onFavorite={() => this.props.favoriteArtworks.remove({ _id: model._id })}
+        />
       </ScrollView>
     )
   }

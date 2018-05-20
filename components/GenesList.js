@@ -10,7 +10,7 @@ class GenesList extends Component {
 
   
   render() {
-    const { collection, loading } = this.props
+    const { collection, loading, isFavorite } = this.props
 
     if (!_.isEmpty(collection) && !loading) {
 
@@ -22,7 +22,7 @@ class GenesList extends Component {
                 avatar={{ uri: imageHref(gene._links.image.href, 'thumb') }}
                 key={gene.id}
                 title={ gene.display_name ? gene.display_name : gene.name }
-                onPress={() => this.props.navigation.navigate("Gene", { model: gene })} />
+                onPress={() => this.props.navigation.navigate("Gene", { model: gene, isFavorite: isFavorite })} />
             })
           }
         </List>

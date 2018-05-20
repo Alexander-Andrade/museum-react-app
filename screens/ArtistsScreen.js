@@ -43,6 +43,7 @@ class ArtistsScreen extends React.Component {
     ) : (
       <ScrollView>
         <ArtistsList
+					isFavorite={false}
           collection={this.props.artistsModel.list}
 					loading={this.props.artistsModel.loading}
 					isFavorite={false} />

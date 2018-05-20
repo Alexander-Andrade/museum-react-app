@@ -62,11 +62,12 @@ class Artist extends Component {
   }
 
   renderInfo() {
-    const { model } = this.props.navigation.state.params
+    const { model, isFavorite } = this.props.navigation.state.params
     const sections = [
     {
       title: 'Artworks',
-      content: <ArtworksList 
+      content: <ArtworksList
+                  isFavorite={false} 
                   collection={this.state.artworksModel.list}  
                   loading={this.state.artworksModel.loading} 
                   containerStyle={{ marginTop: -20 }}/>
@@ -75,6 +76,7 @@ class Artist extends Component {
     {
       title: 'Genes',
       content: <GenesList 
+                  isFavorite={false}
                   collection={this.state.genesModel.list} 
                   loading={this.state.genesModel.loading}
                   containerStyle={{ marginTop: -20 }}/>
@@ -128,9 +130,6 @@ class Artist extends Component {
 const styles = StyleSheet.create({
 	artist: {
     flex: 1,
-    marginTop: 20
-  },
-  favoriteButton: {
     marginTop: 20
   }
 })

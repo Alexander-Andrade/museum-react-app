@@ -44,7 +44,7 @@ class ArtworksScreen extends React.Component {
 						return (
 							<TouchableOpacity 
 								key={artwork.id}
-								onPress={() => this.props.navigation.navigate("Artwork", { model: artwork })}>
+								onPress={() => this.props.navigation.navigate("Artwork", { model: artwork, isFavorite: false })}>
 								<Card
 									key={artwork.id}
 									title={artwork.title}

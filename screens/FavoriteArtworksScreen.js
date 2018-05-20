@@ -9,7 +9,6 @@ import {
   Modal
 } from 'react-native'
 import BasicHeader from '../components/BasicHeader'
-import PaginationButtons from '../components/PaginationButtons'
 import { observer, inject } from 'mobx-react'
 import { List, ListItem, Card, Button, Divider } from 'react-native-elements'
 import imageHref from '../models/ArtsyImage'
