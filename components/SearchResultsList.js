@@ -12,7 +12,6 @@ class SearchResultsList extends Component {
 
   async onDetailsPress(result) {
     const model = await this.props.searchModel.loadResult(result)
-    console.log(model)
     this.props.navigation.navigate(this.props.navigateTo, { model:  model, isFavorite: false})
   }
 
