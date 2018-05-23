@@ -16,11 +16,18 @@ class ArtistsList extends Component {
         <List containerStyle={{marginTop: 0}}>
           {
             collection.map((artist) => {
-              return <ListItem
-                avatar={{ uri: imageHref(artist._links.image.href, 'four_thirds') }}
-                key={artist.id}
-                title={artist.name}
-                onPress={() => this.props.navigation.navigate("Artist", { model: artist, isFavorite: isFavorite })} />
+              if(!_.isEmpty(_.get(artist, '_links.image.href'))) {
+                return <ListItem
+                  avatar={{ uri: imageHref(artist._links.image.href, 'four_thirds') }}
+                  key={artist.id}
+                  title={artist.name}
+                  onPress={() => this.props.navigation.navigate("Artist", { model: artist })} />
+              }else{
+                return <ListItem
+                  key={artist.id}
+                  title={artist.name}
+                  onPress={() => this.props.navigation.navigate("Artist", { model: artist })} />
+              }
             })
           }
         </List>

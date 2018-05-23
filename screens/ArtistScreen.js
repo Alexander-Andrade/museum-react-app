@@ -17,6 +17,8 @@ import AccordionView from '../components/AccordionView'
 import ArtsyModel from '../models/ArtsyModel'
 import ArtsySettings from '../constants/ArtsySettings'
 import FavoriteButton from '../components/FavoriteButton'
+import _ from 'lodash'
+
 
 @inject("favoriteArtists")  
 @observer
@@ -38,11 +40,30 @@ class Artist extends Component {
         collection: 'genes',
         href: model._links.genes.href, 
         limit: ArtsySettings.queryLimit
-      })
+      }),
+      isFavorite: false
     }
     
     this.state.artworksModel.loadNext();
     this.state.genesModel.loadNext();
+
+    this.props.favoriteArtists.store.findOne({name: model.name}, (err, doc) =>{
+      if(!_.isEmpty(doc)){
+        this.setState({isFavorite: true})
+      }
+    })
+  }
+
+  onFavorite(){
+    const { model } = this.props.navigation.state.params
+    this.props.favoriteArtists.remove({ name: model.name })
+    this.setState({isFavorite: false})
+  }
+
+  onNotFavorite(){
+    const { model } = this.props.navigation.state.params
+    this.props.favoriteArtists.insert(model)
+    this.setState({isFavorite: true})
   }
 
   renderHeader () {
@@ -63,12 +84,11 @@ class Artist extends Component {
   }
 
   renderInfo() {
-    const { model, isFavorite } = this.props.navigation.state.params
+    const { model } = this.props.navigation.state.params
     const sections = [
     {
       title: 'Artworks',
       content: <ArtworksList
-                  isFavorite={false} 
                   collection={this.state.artworksModel.list}  
                   loading={this.state.artworksModel.loading} 
                   containerStyle={{ marginTop: -20 }}/>
@@ -77,7 +97,6 @@ class Artist extends Component {
     {
       title: 'Genes',
       content: <GenesList 
-                  isFavorite={false}
                   collection={this.state.genesModel.list} 
                   loading={this.state.genesModel.loading}
                   containerStyle={{ marginTop: -20 }}/>
@@ -111,17 +130,20 @@ class Artist extends Component {
   }
 
   render() {
-    const { model, isFavorite } = this.props.navigation.state.params
+    const { model } = this.props.navigation.state.params
 
+    
     return (
       <ScrollView style={styles.artist}>
         {this.renderHeader()}
+        {_.get(model, '_links.image.href') &&
         <ArtsyImageView imhref={model._links.image.href} size={'large'} />
+        }
         {this.renderInfo()}
         <FavoriteButton 
-          isFavorite={isFavorite}
-          onNotFavorite={() =>  this.props.favoriteArtists.insert(model)}
-          onFavorite={() => this.props.favoriteArtists.remove({ _id: model._id })}
+          isFavorite={this.state.isFavorite}
+          onNotFavorite={() =>  this.onNotFavorite() }
+          onFavorite={() => this.onFavorite() }
         />
       </ScrollView>
     )

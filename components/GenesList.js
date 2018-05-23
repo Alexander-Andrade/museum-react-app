@@ -22,7 +22,7 @@ class GenesList extends Component {
                 avatar={{ uri: imageHref(gene._links.image.href, 'thumb') }}
                 key={gene.id}
                 title={ gene.display_name ? gene.display_name : gene.name }
-                onPress={() => this.props.navigation.navigate("Gene", { model: gene, isFavorite: isFavorite })} />
+                onPress={() => this.props.navigation.navigate("Gene", { model: gene })} />
             })
           }
         </List>

@@ -21,7 +21,7 @@ class ArtworkstsList extends Component {
                 avatar={{ uri: imageHref(artwork._links.image.href, 'small') }}
                 key={artwork.id}
                 title={artwork.title}
-                onPress={() => this.props.navigation.navigate("Artwork", { model: artwork, isFavorite: isFavorite })} />
+                onPress={() => this.props.navigation.navigate("Artwork", { model: artwork })} />
             })
           }
         </List>
