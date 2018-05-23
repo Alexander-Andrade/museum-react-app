@@ -32,8 +32,7 @@ class ArtsyModel {
       response = await axios.get(href, {
         headers: {
           "X-XAPP-Token": token
-        },
-        timeout: 3000
+        }
       })
       
       this.list = _.get(response, `data._embedded.${this.collection}`, [])
